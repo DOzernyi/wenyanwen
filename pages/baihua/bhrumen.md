@@ -12,11 +12,11 @@ layout: default
     }
 
     p.big {
-      line-height: 1.8;
+      line-height: 2.5;
+      font-size: 2em;
     }
     </style>
 </head>
-
 
 鳥鳴於樹上。兒以石擊之。父曰：「何以擊鳥？」兒曰：「人言：『鵲之鳴吉，鴉之鳴凶。』今鳴者，鴉也。以故擊之。」父曰：「人之智高於鳥之智。人不能知吉凶。鳥何以能知之？」
 
@@ -38,11 +38,11 @@ layout: default
          [ '於', '在', 1 ],
          [ '樹', '樹', 1 ],
          [ '上', '上', 1 ],
-         [ '。', '。', 1 ]
+         [ '-', '-', 1 ]
        ]);
        // Sets chart options.
        var options = {
-         width: 500,
+         width: 250,
        };
        // Instantiates and draws our chart, passing in some options.
        var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
