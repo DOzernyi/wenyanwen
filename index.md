@@ -36,8 +36,6 @@ layout: default
   <body>
     <div id="sankey_basic" style="width: 900px; height: 300px;"></div>
   </body>
-</html
-
-1 1
+</html>
 
 [Link to another page](./pages/bhbaihua/rumen.html).
