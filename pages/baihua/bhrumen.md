@@ -51,7 +51,7 @@ layout: default
    </script>
  </head>
  <body>
-   <div id="sankey_basic" style="width: 300px; height: 100px;"></div>
+   <div id="sankey_basic" style="width: 300px; height: 250px;"></div>
  </body>
 </html>
 
