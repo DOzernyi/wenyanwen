@@ -33,12 +33,12 @@ layout: default
        data.addColumn('string', 'To');
        data.addColumn('number', 'Weight');
        data.addRows([
-         [ '鳥', '鳥', 1 ],
+         [ '鳥', '(一隻)鳥', 1 ],
          [ '鳴', '叫', 1 ],
          [ '於', '在', 1 ],
-         [ '樹', '樹', 1 ],
-         [ '上', '上', 1 ],
-         [ '-', '-', 1 ]
+         [ '樹', '樹 ', 1 ],
+         [ '上', '上 ', 1 ],
+         [ '-', '- ', 1 ]
        ]);
        // Sets chart options.
        var options = {
