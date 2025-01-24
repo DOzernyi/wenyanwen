@@ -2,9 +2,7 @@
 layout: default
 ---
 
-
 <head>
-
   <!-- ... -->
 
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/cwtexkai.css">
@@ -16,8 +14,7 @@ layout: default
     p.big {
       line-height: 1.8;
     }
-</style>
-  </style>
+    </style>
 </head>
 
 
