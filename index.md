@@ -38,6 +38,6 @@ layout: default
   </body>
 </html
 
-1
+1 1
 
 [Link to another page](./pages/bhbaihua/rumen.html).
