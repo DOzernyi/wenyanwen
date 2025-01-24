@@ -16,7 +16,7 @@ layout: default
       font-size: x-large;
     }
     p {
-      font-size: 6em;
+      font-size: 1em;
     }
     </style>
 </head>
