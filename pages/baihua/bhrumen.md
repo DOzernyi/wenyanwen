@@ -13,7 +13,7 @@ layout: default
 
     p.big {
       line-height: 4;
-      font-size: 40px;
+      font-size: x-large;
     }
     </style>
 </head>
@@ -51,7 +51,7 @@ layout: default
    </script>
  </head>
  <body>
-   <div id="sankey_basic" style="width: 200px; height: 900px;"></div>
+   <div id="sankey_basic" style="width: 300px; height: 100px;"></div>
  </body>
 </html>
 
