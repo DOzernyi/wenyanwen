@@ -76,11 +76,11 @@ layout: default
 
         // For each orgchart box, provide the name, manager, and tooltip to show.
         data.addRows([
-          ['w1', 'w1', ''],
-          ['w2', 'w2', ''],
-          ['w3', 'w3', ''],
-          ['w4', 'w4', ''],
-          ['w5', 'w2', ''],
+          ['w1', 'w1 ', ''],
+          ['w2', 'w2 ', ''],
+          ['w3', 'w3 ', ''],
+          ['w4', 'w4 ', ''],
+          ['w5', 'w2 ', ''],
         ]);
 
         // Create the chart.
