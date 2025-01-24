@@ -12,11 +12,11 @@ layout: default
     }
 
     p.big {
-      line-height: 4;
+      line-height: 3;
       font-size: x-large;
     }
     p {
-      font-size: 2em;
+      font-size: 1.5em;
     }
     </style>
 </head>
