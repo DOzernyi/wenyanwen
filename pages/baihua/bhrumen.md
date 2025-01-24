@@ -12,8 +12,8 @@ layout: default
     }
 
     p.big {
-      line-height: 3;
-      font-size: 20px;
+      line-height: 4;
+      font-size: 40px;
     }
     </style>
 </head>
@@ -42,7 +42,7 @@ layout: default
        ]);
        // Sets chart options.
        var options = {
-         width: 25,
+         width: 250,
        };
        // Instantiates and draws our chart, passing in some options.
        var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
@@ -51,7 +51,7 @@ layout: default
    </script>
  </head>
  <body>
-   <div id="sankey_basic" style="width: 700px; height: 900px;"></div>
+   <div id="sankey_basic" style="width: 200px; height: 900px;"></div>
  </body>
 </html>
 
