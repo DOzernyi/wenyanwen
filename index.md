@@ -10,10 +10,10 @@ layout: default
 
       function drawChart() {
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'From');
-        data.addColumn('string', 'To');
-        data.addColumn('number', 'Weight');
-        data.addRows([
+        data.addRow('string', 'From');
+        data.addRow('string', 'To');
+        data.addRow('number', 'Weight');
+        data.addColumns([
           [ 'A', 'B', 1 ],
           [ 'C', 'D', 1 ],
           [ 'E', 'F', 1 ],
