@@ -14,12 +14,12 @@ layout: default
         data.addColumn('string', 'To');
         data.addColumn('number', 'Weight');
         data.addRows([
-          [ 'A', 'X', 5 ],
-          [ 'A', 'Y', 7 ],
-          [ 'A', 'Z', 6 ],
-          [ 'B', 'X', 2 ],
-          [ 'B', 'Y', 9 ],
-          [ 'B', 'Z', 4 ]
+          [ 'A', 'B', 1 ],
+          [ 'C', 'D', 1 ],
+          [ 'E', 'F', 1 ],
+          [ 'G', 'H', 1 ],
+          [ 'I', 'K', 1 ],
+          [ 'L', 'M', 1 ]
         ]);
 
         // Sets chart options.
