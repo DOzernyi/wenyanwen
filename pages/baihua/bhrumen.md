@@ -15,6 +15,9 @@ layout: default
       line-height: 4;
       font-size: x-large;
     }
+    p {
+      font-size: 6em;
+    }
     </style>
 </head>
 
