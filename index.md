@@ -7,13 +7,12 @@ layout: default
     <script type="text/javascript">
       google.charts.load('current', {'packages':['sankey']});
       google.charts.setOnLoadCallback(drawChart);
-
       function drawChart() {
         var data = new google.visualization.DataTable();
-        data.addRow('string', 'From');
-        data.addRow('string', 'To');
-        data.addRow('number', 'Weight');
-        data.addColumns([
+        data.addColumn('string', 'From');
+        data.addColumn('string', 'To');
+        data.addColumn('number', 'Weight');
+        data.addRows([
           [ 'A', 'B', 1 ],
           [ 'C', 'D', 1 ],
           [ 'E', 'F', 1 ],
@@ -21,12 +20,10 @@ layout: default
           [ 'I', 'K', 1 ],
           [ 'L', 'M', 1 ]
         ]);
-
         // Sets chart options.
         var options = {
-          width: 600,
+          width: 500,
         };
-
         // Instantiates and draws our chart, passing in some options.
         var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
         chart.draw(data, options);
@@ -34,7 +31,7 @@ layout: default
     </script>
   </head>
   <body>
-    <div id="sankey_basic" style="width: 900px; height: 300px;"></div>
+    <div id="sankey_basic" style="width: 700px; height: 900px;"></div>
   </body>
 </html>
 
