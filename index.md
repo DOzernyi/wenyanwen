@@ -70,4 +70,15 @@ squarednode/.style={rectangle, draw=blue!60, fill=blue!5, thick, minimum size=10
 \end{tikzpicture}
 </script>
 
+<svg width="500" height="200">
+  <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+  <rect x="100" y="10" width="50" height="50" style="fill:blue;stroke:pink;stroke-width:5;fill-opacity:0.1;stroke-opacity:0.9" />
+  <ellipse cx="250" cy="60" rx="100" ry="50" style="fill: yellow; stroke:purple; stroke-width: 2" />
+  <line x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(255,0,0);stroke-width:2" />
+  <polygon points="200,10 250,190 160,210" style="fill:lime;stroke:purple;stroke-width:1" />
+  <polyline points="20,20 40,25 60,40 80,120 120,140 200,180" style="fill:none;stroke:black;stroke-width:3" />
+  <text x="200" y="15" fill="red" transform="rotate(30 20,40)">I love SVG</text>
+</svg>
+
+
 [Link to another page](./pages/bhbaihua/rumen.html).
