@@ -2,6 +2,38 @@
 layout: default
 ---
 
+<head>
+  <!-- ... -->
+  <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+  <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/cwtexkai.css">
+  <style>
+    body {
+     font-family: "cwTeXKai", serif;
+    }
+
+    p.big {
+      line-height: 3;
+      font-size: x-large;
+    }
+    p {
+      font-size: 1.5em;
+    }
+    </style>
+
+</head>
+
+鳥鳴於樹上。兒以石擊之。父曰：「何以擊鳥？」兒曰：「人言：『鵲之鳴吉，鴉之鳴凶。』今鳴者，鴉也。以故擊之。」父曰：「人之智高於鳥之智。人不能知吉凶。鳥何以能知之？」
+
+<script type="text/tikz">
+  \begin{tikzcd}
+    A \arrow[r, "\phi"] \arrow[d, red]
+      & B \arrow[d, "\psi" red] \\
+    C \arrow[r, red, "\eta" blue]
+      & |[blue, rotate=-15]| D
+  \end{tikzcd}
+</script>
+
 html
  <html>
   <head>
