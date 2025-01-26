@@ -51,12 +51,6 @@ layout: default
 % \draw[dashed, ->] (uppercircle.west) .. controls +(left:20mm) and +(left:20mm) .. (lowercircle.west);
 % \draw[dashed, ->] (maintopic.west) .. controls +(left:10mm) and +(left:10mm) .. (lowercircle.west);
 \end{tikzpicture}
-  <!-- \begin{tikzcd}
-    A \arrow[r, "\phi"] \arrow[d, red]
-      & B \arrow[d, "\psi" red] \\
-    C \arrow[r, red, "\eta" blue]
-      & |[blue, rotate=-15]| D
-  \end{tikzcd} -->
 </script>
 
 html
