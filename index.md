@@ -28,16 +28,14 @@ layout: default
 
 
 
-<script type="text/tikz">
-\usepackage{xeCJK}
-
+<script type="text/tikz" data-tex-packages="">
 \begin{tikzpicture}[
 roundnode/.style={circle, draw=black!60, fill=white!5, thick, minimum size=10mm},
 squarednode/.style={rectangle, draw=blue!60, fill=blue!5, thick, minimum size=10mm},
 ]
 \Large
 \node[squarednode]  (1u) {w};
-\node[squarednode]  (2u) [right=of 1u] {歐};
+\node[squarednode]  (2u) [right=of 1u] {1};
 \node[squarednode]  (3u) [right=of 2u] {w};
 \node[squarednode]  (4u) [right=of 3u] {w};
 \node[squarednode]  (5u) [right=of 4u] {w};
