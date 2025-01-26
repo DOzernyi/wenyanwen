@@ -2,26 +2,6 @@
 
 set -e
 
-# Monitor tex files and compile them
-while IFS=$'\n' read line; do
-    event=$(echo $line | awk -F '<@>' {'print $1'})
-    dir=$(echo $line | awk -F '<@>' {'print $2'})
-    file=$(echo $line | awk -F '<@>' {'print $3'})
-    if [[ $file == *.tex ]]; then
-        fxname=$(basename -- "$file")
-        fxname_noext="${file%.*}"
-        new_md5=($(md5sum "$dir$file"))
-
-        fsvg="/srv/jekyll/assets/svg/${fxname_noext}-${new_md5}.svg"
-        fpdf="${dir}${fxname_noext}.pdf"
-        if [[ ! -f "$fsvg" ]]; then
-            echo "[$fxname] with hash {"$new_md5"} compiling"
-            (pdflatex -output-directory "$dir" "$file" && \
-                pdf2svg "$fpdf" "$fsvg")&
-        fi;
-    fi;
-done < <(inotifywait -m -r -e modify --format "%e<@>%w<@>%f" /srv/jekyll/_tikz)
-
 bundle exec jekyll build --trace
 bundle exec htmlproofer ./_site --check-html --check-sri
 bundle exec rubocop -D --config .rubocop.yml
