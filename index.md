@@ -29,6 +29,8 @@ layout: default
 
 
 <script type="text/tikz">
+\usepackage{xeCJK}
+
 \begin{tikzpicture}[
 roundnode/.style={circle, draw=black!60, fill=white!5, thick, minimum size=10mm},
 squarednode/.style={rectangle, draw=blue!60, fill=blue!5, thick, minimum size=10mm},
