@@ -33,12 +33,12 @@ layout: default
 ]
 %Nodes
 \node[squarednode]  (1u) {w};
-\node[squarednode]  (2u) [right=of 1u] {肉};
-\node[squarednode]  (3u) [right=of 2u] {鳥};
-\node[squarednode]  (4u) [right=of 3u] {不確定};
+\node[squarednode]  (2u) [right=of 1u] {abc};
+\node[squarednode]  (3u) [right=of 2u] {abc};
+\node[squarednode]  (4u) [right=of 3u] {abc};
 
 \node[roundnode]  (1b) [below=of 1u] {w};
-\node[roundnode]  (2b) [below=of 2u] {有可能};
+\node[roundnode]  (2b) [below=of 2u] {abc};
 \node[roundnode]  (3b) [below=of 3u] {u};
 \node[roundnode]  (4b) [below=of 4u] {w};
 
