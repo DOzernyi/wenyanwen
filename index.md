@@ -35,7 +35,7 @@ squarednode/.style={rectangle, draw=blue!60, fill=blue!5, thick, minimum size=10
 ]
 \Large
 \node[squarednode]  (1u) {w};
-\node[squarednode]  (2u) [right=of 1u] {$歐陽修$};
+\node[squarednode]  (2u) [right=of 1u] {歐};
 \node[squarednode]  (3u) [right=of 2u] {w};
 \node[squarednode]  (4u) [right=of 3u] {w};
 \node[squarednode]  (5u) [right=of 4u] {w};
