@@ -1,4 +1,24 @@
-#!/bin/sh
+
+#!/bin/bash
+# Monitor tex files and compile them
+while IFS=$'\n' read line; do
+    event=$(echo $line | awk -F '<@>' {'print $1'})
+    dir=$(echo $line | awk -F '<@>' {'print $2'})
+    file=$(echo $line | awk -F '<@>' {'print $3'})
+    if [[ $file == *.tex ]]; then
+        fname=$(basename -- "$file")
+        fname_noext="${file%.*}"
+        new_md5=($(md5sum "$dir$file"))
+
+        fsvg="/srv/jekyll/assets/svg/${fname_noext}-${new_md5}.svg"
+        fpdf="${dir}${fname_noext}.pdf"
+        if [[ ! -f "$fsvg" ]]; then
+            echo "[$fname] with hash {"$new_md5"} compiling"
+            (pdflatex -output-directory "$dir" "$file" && \
+                pdf2svg "$fpdf" "$fsvg")&
+        fi;
+    fi;
+done < <(inotifywait -m -r -e modify --format "%e<@>%w<@>%f" /srv/jekyll/_tikz)
 
 set -e
 

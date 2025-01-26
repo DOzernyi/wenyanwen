@@ -1,30 +1,11 @@
-#!/bin/bash
-# Monitor tex files and compile them
-while IFS=$'\n' read line; do
-    event=$(echo $line | awk -F '<@>' {'print $1'})
-    dir=$(echo $line | awk -F '<@>' {'print $2'})
-    file=$(echo $line | awk -F '<@>' {'print $3'})
-    if [[ $file == *.tex ]]; then
-        fname=$(basename -- "$file")
-        fname_noext="${file%.*}"
-        new_md5=($(md5sum "$dir$file"))
-
-        fsvg="/srv/jekyll/assets/svg/${fname_noext}-${new_md5}.svg"
-        fpdf="${dir}${fname_noext}.pdf"
-        if [[ ! -f "$fsvg" ]]; then
-            echo "[$fname] with hash {"$new_md5"} compiling"
-            (pdflatex -output-directory "$dir" "$file" && \
-                pdf2svg "$fpdf" "$fsvg")&
-        fi;
-    fi;
-done < <(inotifywait -m -r -e modify --format "%e<@>%w<@>%f" /srv/jekyll/_tikz)
 ---
 layout: default
+.inline-latex {
+    display: inline-flex;
+    height: 20px;
+    vertical-align: text-bottom;
+}
 ---
-
-span class="inline-latex">{% latex latex %}\LaTeX{% endlatex %}</span>
-
-
 
  <html>
   <head>
@@ -59,5 +40,8 @@ span class="inline-latex">{% latex latex %}\LaTeX{% endlatex %}</span>
     <div id="sankey_basic" style="width: 700px; height: 900px;"></div>
   </body>
 </html>
+
+
+span class="inline-latex">{% latex latex %}\LaTeX{% endlatex %}</span>
 
 [Link to another page](./pages/bhbaihua/rumen.html).
