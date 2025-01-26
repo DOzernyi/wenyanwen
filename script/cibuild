@@ -1,4 +1,3 @@
-
 #!/bin/bash
 # Monitor tex files and compile them
 while IFS=$'\n' read line; do
