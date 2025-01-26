@@ -20,7 +20,7 @@ layout: default
 
 # 目錄
 |   |           | 白話文                                           | English             | Українська                              |
-|:--|:----------|:------------------------------------------------|:-------------------|:------------------------------------------|
+|:--|:----------|:------------------------------------------------|:--------------------|:------------------------------------------|
 | 1 | 入門一    |                                                  |                    |                                           |
 |   |          | [畫蛇添足](./docs/pages/白話文/入門/畫蛇添足.html) | N/A                | [перейти](./docs/pages/українська/вступ/7.html)|
 |   |          | [太王去邠](./docs/pages/白話文/入門/太王去邠.html) | N/A                | [перейти](./docs/pages/українська/вступ/8.html)|
@@ -40,3 +40,18 @@ layout: default
 |:--|:----------|:------------------------------------------------|:-------------------|:------------------------------------------|
 | 6 | 燕丹子    |                                                  | N/A                |                                       |
 |:--|:----------|:------------------------------------------------|:-------------------|:------------------------------------------|
+
+
+123
+
+|   | Page with brief intro and code with comments          | Overleaf link with clean code and compiled examples    |
+|:--|:---------------------------------------------------------------|:------------------|
+| 1 | 1                  | -- |
+| 2 | 1            | [link](https://www.overleaf.com/read/pwvbtzfknmcj)   |
+| 3 | 1                     | [link](https://www.overleaf.com/read/pncdfwhgdqzx)      |
+| 4 | 1         | -- |
+| 5 | References (natbib, .bst) [TBD]                                            | [TBD] |
+| 6 | 1 | [link](https://www.overleaf.com/read/nsvwmfnjzsyg) |
+| 7 | 1          | [link to 7](https://www.overleaf.com/read/vqysvzvqjkxx), [link to 7.1](https://www.overleaf.com/read/srvqkqcwwhgj) |
+| 8 | 1             | [link](https://www.overleaf.com/read/zzpsdkpsyrcc) |
+| 9 | 1                             | [link](https://www.overleaf.com/read/rncbfbxchcvs) |
