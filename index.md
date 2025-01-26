@@ -33,12 +33,12 @@ layout: default
 ]
 %Nodes
 \node[squarednode]  (1u) {w};
-\node[squarednode]  (2u) [right=of 1u] {w};
-\node[squarednode]  (3u) [right=of 2u] {w};
-\node[squarednode]  (4u) [right=of 3u] {w};
+\node[squarednode]  (2u) [right=of 1u] {肉};
+\node[squarednode]  (3u) [right=of 2u] {鳥};
+\node[squarednode]  (4u) [right=of 3u] {不確定};
 
 \node[roundnode]  (1b) [below=of 1u] {w};
-\node[roundnode]  (2b) [below=of 2u] {w};
+\node[roundnode]  (2b) [below=of 2u] {有可能};
 \node[roundnode]  (3b) [below=of 3u] {u};
 \node[roundnode]  (4b) [below=of 4u] {w};
 
@@ -52,43 +52,5 @@ layout: default
 % \draw[dashed, ->] (maintopic.west) .. controls +(left:10mm) and +(left:10mm) .. (lowercircle.west);
 \end{tikzpicture}
 </script>
-
-html
- <html>
-  <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['sankey']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'From');
-        data.addColumn('string', 'To');
-        data.addColumn('number', 'Weight');
-        data.addRows([
-          [ 'A', 'B', 1 ],
-          [ 'C', 'D', 1 ],
-          [ 'E', 'F', 1 ],
-          [ 'G', 'H', 1 ],
-          [ 'I', 'K', 1 ],
-          [ 'L', 'M', 1 ]
-        ]);
-        // Sets chart options.
-        var options = {
-          width: 500,
-        };
-        // Instantiates and draws our chart, passing in some options.
-        var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
-        chart.draw(data, options);
-      }
-    </script>
-  </head>
-  <body>
-    <div id="sankey_basic" style="width: 700px; height: 900px;"></div>
-  </body>
-</html>
-
-
-span class="inline-latex">{% latex latex %}\LaTeX{% endlatex %}</span>
 
 [Link to another page](./pages/bhbaihua/rumen.html).
