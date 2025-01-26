@@ -5,7 +5,7 @@ module Jekyll
       def initialize(tag_name, text, tokens)
         super
         # @fname = fname.strip
-        @fname="x"
+        @fname = "filename"
         @fname = fname.gsub(/[^\w\s_-]+/, '')
                       .gsub(/(^|\b\s)\s+($|\s?\b)/, '\\1\\2')
                       .gsub(/\s+/, '_')
