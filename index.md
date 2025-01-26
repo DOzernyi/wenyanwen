@@ -25,9 +25,13 @@ layout: default
 
 <svg width="500" height="200">
   <line x1="15" y1="25" x2="15" y2="40" style="stroke:rgb(255,0,0);stroke-width:2" />
-  <rect x="5" y="5" width="19" height="20" style="fill:blue;stroke:blue;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
-  <rect x="5" y="40" width="19" height="20" style="fill:blue;stroke:blue;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
-  <text x="6" y="20" fill="black">詞</text>
+  <line x1="40" y1="25" x2="40" y2="40" style="stroke:rgb(255,0,0);stroke-width:2" />
+  <rect x="5" y="5" width="20" height="20" style="fill:blue;stroke:blue;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+  <rect x="5" y="40" width="20" height="20" style="fill:blue;stroke:blue;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+  <rect x="30" y="5" width="20" height="20" style="fill:blue;stroke:blue;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+  <rect x="30" y="40" width="20" height="20" style="fill:blue;stroke:blue;stroke-width:1;fill-opacity:0.1;stroke-opacity:0.9" />
+  <text x="6.5" y="20" fill="black">鳥</text>
+  <text x="32" y="20" fill="black">鳴</text>
 </svg>
 
 
