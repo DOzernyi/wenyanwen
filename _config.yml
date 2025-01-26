@@ -2,5 +2,5 @@ title: 閱讀古文
 logo: /assets/img/guwenlogo3.png
 description:
 show_downloads: true
-google_analytics: true
+google_analytics:
 theme: jekyll-theme-minimal
