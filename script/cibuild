@@ -7,6 +7,7 @@ while IFS=$'\n' read line; do
     dir=$(echo $line | awk -F '<@>' {'print $2'})
     file=$(echo $line | awk -F '<@>' {'print $3'})
     if [[ $file == *.tex ]]; then
+        fname="x"
         fname=$(basename -- "$file")
         fname_noext="${file%.*}"
         new_md5=($(md5sum "$dir$file"))
