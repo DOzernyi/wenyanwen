@@ -4,7 +4,7 @@ module Jekyll
     class Tikz < Liquid::Block
       def initialize(tag_name, text, tokens)
         super
-        @fxname = fname.strip
+        @fxname = fxname.strip
                       .gsub(/[^\w\s_-]+/, '')
                       .gsub(/(^|\b\s)\s+($|\s?\b)/, '\\1\\2')
                       .gsub(/\s+/, '_')
