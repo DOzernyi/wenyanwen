@@ -1,11 +1,7 @@
 ---
 layout: default
-.inline-latex {
-    display: inline-flex;
-    height: 20px;
-    vertical-align: text-bottom;
-}
 ---
+
 html
  <html>
   <head>
