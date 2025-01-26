@@ -4,7 +4,7 @@ module Jekyll
     class Tikz < Liquid::Block
       def initialize(tag_name, text, tokens)
         super
-        @fname = fname.strip
+        @fxname = fname.strip
                       .gsub(/[^\w\s_-]+/, '')
                       .gsub(/(^|\b\s)\s+($|\s?\b)/, '\\1\\2')
                       .gsub(/\s+/, '_')
@@ -26,11 +26,11 @@ module Jekyll
         FileUtils.mkdir_p dtikz
         FileUtils.mkdir_p dsvg
 
-        ftex = File.join(dtikz, "#{@fname}.tex")
+        ftex = File.join(dtikz, "#{@fxname}.tex")
         File.open(ftex, 'w') { |file| file.write("#{@latex}") }
 
         @md5 = Digest::MD5.hexdigest(@latex)
-        @imgsrc = File.join("/assets", "svg", "#{@fname}-#{@md5}.svg")
+        @imgsrc = File.join("/assets", "svg", "#{@fxname}-#{@md5}.svg")
         "<img width='100%' src=\"#{@imgsrc}\" type=\"image/svg+xml\" />"
       end
     end
