@@ -41,18 +41,3 @@ layout: default
 |:--|:-----------|:------------------|:------------------|:------------------|
 | 6 | 燕丹子    |                                                  | N/A                |                                       |
 |:--|:-----------|:------------------|:------------------|:------------------|
-
-
-123
-
-|   | 荀子українська          | Overleaf link with clean code and compiled examples    |
-|:--|:---------------------------------------------------------------|:------------------|
-| 1 | 1                  | -- |
-| 2 | 1            | [link](https://www.overleaf.com/read/pwvbtzfknmcj)   |
-| 3 | 1                     | [link](https://www.overleaf.com/read/pncdfwhgdqzx)      |
-| 4 | 1         | -- |
-| 5 | References (natbib, .bst) [TBD]                                            | [TBD] |
-| 6 | 1 | [link](https://www.overleaf.com/read/nsvwmfnjzsyg) |
-| 7 | 1          | [link to 7](https://www.overleaf.com/read/vqysvzvqjkxx), [link to 7.1](https://www.overleaf.com/read/srvqkqcwwhgj) |
-| 8 | 1             | [link](https://www.overleaf.com/read/zzpsdkpsyrcc) |
-| 9 | 1                             | [link](https://www.overleaf.com/read/rncbfbxchcvs) |
