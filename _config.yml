@@ -1,6 +1,6 @@
 title: 閱讀古文
-logo: /assets/img/guwenlogo1.png
+logo: /assets/img/guwenlogo3.png
 description:
 show_downloads: true
-google_analytics:
+google_analytics: true
 theme: jekyll-theme-minimal
