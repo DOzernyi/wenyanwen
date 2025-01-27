@@ -55,9 +55,28 @@ a:hover small {
   color:#777;
 }
 
+// .wrapper {
+//   width:860px;
+//   margin:0 auto;
+// }
+// section {
+//   width:500px;
+//   float:right;
+//   padding-bottom:50px;
+// }
+
 .wrapper {
-  width:760px;
+  width:1200px;
+  // left side is 270
+  // 1200-270 = 930
+  // 30px free room
   margin:0 auto;
+}
+
+section {
+  width:900px;
+  float:right;
+  padding-bottom:50px;
 }
 
 blockquote {
@@ -185,11 +204,6 @@ strong {
   color:#222;
 }
 
-section {
-  width:500px;
-  float:right;
-  padding-bottom:50px;
-}
 
 small {
   font-size:11px;
@@ -224,7 +238,7 @@ footer {
   }
 
   header {
-    padding-right:300px;
+    padding-right:320px;
   }
 
   section {
