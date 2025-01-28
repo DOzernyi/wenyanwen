@@ -39,3 +39,5 @@ layout: default
 | 2 | 燕丹子    |                                                  |                |                                       |
 |   |          | [燕丹子](./pages/白話文/燕丹子.html)  | [tbd](./pages/english/燕丹子eng.html)| [tbd](./pages/українська/燕丹子ukr.html)|
 |:--|:-----------|:------------------|:------------------|:------------------|
+
+<meta name="google-site-verification" content="Yc-s4GfUzXHiTf-rcVotaEZzAC-eMV569YgeWAAWIek" />
