@@ -2,7 +2,7 @@
 layout: default
 title: Demo - Annotated Text & Connection Diagrams
 notes:
-  - id: 1
+  - id: 解讀1
     color: "#e74c3c"
     text: "學者：求學的人。古時指讀書人。"
   - id: 2
@@ -31,7 +31,7 @@ Use the annotated text component to display text with footnotes in a side column
 
 {% capture main_text %}
 <p>
-  古之學者必有師{% include fn.html id="1" color="#e74c3c" %}。師者，所以傳道受業解惑也{% include fn.html id="2" color="#3498db" %}。人非生而知之者，孰能無惑{% include fn.html id="3" color="#2ecc71" %}？惑而不從師，其為惑也{% include fn.html id="5" color="#9b59b6" %}，終不解矣{% include fn.html id="4" color="#9b59b6" %}。
+  古之學者必有師{% include fn.html id="解讀1" color="#e74c3c" %}。師者，所以傳道受業解惑也{% include fn.html id="2" color="#3498db" %}。人非生而知之者，孰能無惑{% include fn.html id="3" color="#2ecc71" %}？惑而不從師，其為惑也{% include fn.html id="5" color="#9b59b6" %}，終不解矣{% include fn.html id="4" color="#9b59b6" %}。
 </p>
 {% endcapture %}
 
