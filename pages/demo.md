@@ -14,10 +14,12 @@ notes:
   - id: 注4
     color: "#9b59b6"
     text: "從師：跟從老師學習。終：最終。"
-   - id: 5
+  - id: 5
     color: "#9b59b6"
     text: "我想要寫的任何說明或注意。"
-
+  - id: 解讀13
+    color: "#e74c3c"
+    text: "學者：求學的人。古時指讀書人。"
 ---
 
 # Feature Demo
@@ -32,7 +34,7 @@ Use the annotated text component to display text with footnotes in a side column
 
 {% capture main_text %}
 <p>
-  古之學者必有師{% include fn.html id="解讀12" color="#e74c3c" %}。師者，所以傳道受業解惑也{% include fn.html id="2" color="#3498db" %}。人非生而知之者，孰能無惑{% include fn.html id="3" color="#2ecc71" %}？惑而不從師，其為惑也{% include fn.html id="5" color="#9b59b6" %}，終不解矣{% include fn.html id="注4" color="#9b59b6" %}。
+  古之學者必有師{% include fn.html id="解讀12" color="#e74c3c" %}。師者，所以傳道受業解惑也{% include fn.html id="2" color="#3498db" %}。人非生而知之者，孰能無惑{% include fn.html id="解讀13" color="#2ecc71" %}？惑而不從師，其為惑也{% include fn.html id="5" color="#9b59b6" %}，終不解矣{% include fn.html id="注4" color="#9b59b6" %}。
 </p>
 {% endcapture %}
 
