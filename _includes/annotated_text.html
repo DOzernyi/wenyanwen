@@ -1,20 +1,28 @@
 <div class="annotated-container">
-  <div class="annotated-main">
+  <div class="annotated-main" id="annotated-content-{{ include.id | default: 'main' }}">
     {{ include.content }}
   </div>
-  <div class="annotated-notes">
-    {% for note in include.notes %}
-    {% if note[1].text %}
-    <div class="sidenote" style="border-left-color: {{ note[1].color | default: '#267CB9' }};">
-      <span class="note-marker" style="background-color: {{ note[1].color | default: '#267CB9' }};">{{ note[0] }}</span>
-      {{ note[1].text }}
-    </div>
-    {% elsif note.text %}
-    <div class="sidenote" style="border-left-color: {{ note.color | default: '#267CB9' }};">
-      <span class="note-marker" style="background-color: {{ note.color | default: '#267CB9' }};">{{ note.id }}</span>
-      {{ note.text }}
-    </div>
-    {% endif %}
-    {% endfor %}
+  <div class="annotated-notes" id="annotated-notes-{{ include.id | default: 'main' }}">
   </div>
 </div>
+<script>
+(function() {
+  var container = document.getElementById('annotated-content-{{ include.id | default: "main" }}');
+  var notesContainer = document.getElementById('annotated-notes-{{ include.id | default: "main" }}');
+  var refs = container.querySelectorAll('.note-ref[data-note-text]');
+  var seen = {};
+  refs.forEach(function(ref) {
+    var id = ref.getAttribute('data-note-id');
+    var text = ref.getAttribute('data-note-text');
+    var color = ref.getAttribute('data-note-color') || '#267CB9';
+    if (text && !seen[id]) {
+      seen[id] = true;
+      var note = document.createElement('div');
+      note.className = 'sidenote';
+      note.style.borderLeftColor = color;
+      note.innerHTML = '<span class="note-marker" style="background-color: ' + color + ';">' + id + '</span> ' + text;
+      notesContainer.appendChild(note);
+    }
+  });
+})();
+</script>

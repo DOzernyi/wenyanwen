@@ -31,39 +31,26 @@ This site uses the Jekyll static site generator with the minimal theme. It inclu
 
 ## Custom Features
 
-### 1. Annotated Text with Side Footnotes (Simple Syntax)
+### 1. Annotated Text with Side Footnotes (Inline Syntax - No YAML needed!)
 
-**Step 1:** Define notes in page front-matter (list format):
-
-```yaml
----
-notes:
-  - id: 解讀1
-    color: "#e74c3c"
-    text: "First footnote explanation"
-  - id: 注2
-    color: "#3498db"
-    text: "Second footnote explanation"
----
-```
-
-**IMPORTANT:** Each note entry must start with exactly 2 spaces, then `- id:`. The `color` and `text` lines must have exactly 4 spaces of indentation.
-
-To add a new note, copy this template exactly:
-```yaml
-  - id: 新注釋
-    color: "#ff6600"
-    text: "Your new note"
-```
-
-**Step 2:** Use `fn.html` for inline markers and `annotated_text.html` for the container:
+Add footnotes directly inline with your text - no separate YAML definition required:
 
 ```liquid
 {% capture main_text %}
-Your text{% include fn.html id="解讀1" color="#e74c3c" %} with markers.
+Your text{% include fn.html id="注1" color="#e74c3c" text="Your explanation here" %} continues.
 {% endcapture %}
 
-{% include annotated_text.html content=main_text notes=page.notes %}
+{% include annotated_text.html content=main_text %}
+```
+
+Each footnote includes:
+- `id` - The footnote ID shown in the marker (e.g., "注1", "解讀2")  
+- `color` - The color for this footnote (e.g., "#e74c3c")
+- `text` - The explanation text shown in the sidebar
+
+To add a new footnote, just add it inline:
+```liquid
+{% include fn.html id="新注釋" color="#ff6600" text="Your explanation" %}
 ```
 
 ### 2. Connection Diagrams
