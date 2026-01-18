@@ -1,4 +1,6 @@
 <div class="annotated-container">
+  <div class="footnote-filters" id="footnote-filters-{{ include.id | default: 'main' }}">
+  </div>
   <div class="annotated-main" id="annotated-content-{{ include.id | default: 'main' }}">
     {{ include.content }}
   </div>
@@ -10,10 +12,13 @@
   var containerId = '{{ include.id | default: "main" }}';
   var container = document.getElementById('annotated-content-' + containerId);
   var notesContainer = document.getElementById('annotated-notes-' + containerId);
+  var filtersContainer = document.getElementById('footnote-filters-' + containerId);
   var annotatedContainer = container.parentElement;
   var refs = container.querySelectorAll('.note-ref[data-note-text]');
   var sidenotes = [];
   var labelCounters = {};
+  var labelColors = {};
+  var hiddenLabels = {};
 
   refs.forEach(function(ref) {
     var label = ref.getAttribute('data-note-label') || '注';
@@ -22,6 +27,7 @@
     
     if (!labelCounters[label]) {
       labelCounters[label] = 0;
+      labelColors[label] = color;
     }
     labelCounters[label]++;
     var numberedId = label + labelCounters[label];
@@ -32,14 +38,54 @@
     if (text) {
       var note = document.createElement('div');
       note.className = 'sidenote';
+      note.setAttribute('data-label', label);
       note.style.borderLeftColor = color;
       note.innerHTML = '<span class="note-marker" style="background-color: ' + color + ';">' + numberedId + '</span> ' + text;
       notesContainer.appendChild(note);
       
       var parentP = ref.closest('p');
-      sidenotes.push({ ref: ref, note: note, parentP: parentP });
+      sidenotes.push({ ref: ref, note: note, parentP: parentP, label: label });
     }
   });
+
+  var labels = Object.keys(labelCounters);
+  if (labels.length > 0) {
+    labels.forEach(function(label) {
+      var btn = document.createElement('button');
+      btn.className = 'filter-btn active';
+      btn.setAttribute('data-label', label);
+      btn.style.borderColor = labelColors[label];
+      btn.style.color = labelColors[label];
+      btn.innerHTML = label + ' <span class="filter-count">' + labelCounters[label] + '</span>';
+      
+      btn.addEventListener('click', function() {
+        var isActive = btn.classList.contains('active');
+        if (isActive) {
+          btn.classList.remove('active');
+          btn.style.backgroundColor = '';
+          btn.style.color = labelColors[label];
+          hiddenLabels[label] = true;
+        } else {
+          btn.classList.add('active');
+          btn.style.backgroundColor = '';
+          btn.style.color = labelColors[label];
+          delete hiddenLabels[label];
+        }
+        updateVisibility();
+        setTimeout(positionSidenotes, 50);
+      });
+      
+      filtersContainer.appendChild(btn);
+    });
+  }
+
+  function updateVisibility() {
+    sidenotes.forEach(function(item) {
+      var isHidden = hiddenLabels[item.label];
+      item.ref.style.display = isHidden ? 'none' : '';
+      item.note.style.display = isHidden ? 'none' : '';
+    });
+  }
 
   function positionSidenotes() {
     var isMobile = window.innerWidth <= 768;
@@ -51,8 +97,10 @@
     
     if (isMobile) {
       sidenotes.forEach(function(item) {
-        item.note.style.position = 'static';
-        item.note.style.top = '';
+        if (!hiddenLabels[item.label]) {
+          item.note.style.position = 'static';
+          item.note.style.top = '';
+        }
       });
       return;
     }
@@ -63,6 +111,8 @@
     var paragraphMaxBottom = {};
     
     sidenotes.forEach(function(item, index) {
+      if (hiddenLabels[item.label]) return;
+      
       var refRect = item.ref.getBoundingClientRect();
       var targetTop = refRect.top - containerRect.top;
       
@@ -110,6 +160,8 @@
     var lastBottom = 0;
     
     sidenotes.forEach(function(item) {
+      if (hiddenLabels[item.label]) return;
+      
       var refRect = item.ref.getBoundingClientRect();
       var targetTop = refRect.top - containerRect.top;
       
