@@ -179,6 +179,10 @@ title: 閱讀古文
   background: linear-gradient(135deg, rgba(61,107,153,0.08) 0%, transparent 100%);
 }
 
+.book-card.jing-hua .book-header {
+  background: linear-gradient(135deg, rgba(156,89,182,0.08) 0%, transparent 100%);
+}
+
 .book-title {
   font-size: 1.4em;
   color: var(--ink-dark);
@@ -190,6 +194,7 @@ title: 閱讀古文
 .book-card.hong-lou .book-title { color: var(--vermilion); }
 .book-card.ru-lin .book-title { color: var(--jade); }
 .book-card.shui-hu .book-title { color: var(--azure); }
+.book-card.jing-hua .book-title { color: #9c59b6; }
 
 .book-meta {
   display: flex;
@@ -233,6 +238,7 @@ title: 閱讀古文
 .book-card.hong-lou .chapter-item { border-left-color: var(--vermilion); }
 .book-card.ru-lin .chapter-item { border-left-color: var(--jade); }
 .book-card.shui-hu .chapter-item { border-left-color: var(--azure); }
+.book-card.jing-hua .chapter-item { border-left-color: #9c59b6; }
 
 .chapter-item:hover {
   background: rgba(255,255,255,0.9);
@@ -250,6 +256,7 @@ title: 閱讀古文
 .chapter-link:hover { color: var(--vermilion); }
 .book-card.ru-lin .chapter-link:hover { color: var(--jade); }
 .book-card.shui-hu .chapter-link:hover { color: var(--azure); }
+.book-card.jing-hua .chapter-link:hover { color: #9c59b6; }
 
 .coming-soon {
   display: flex;
@@ -423,6 +430,23 @@ title: 閱讀古文
           </li>
         </ul>
         <p class="coming-soon">章節準備中</p>
+      </div>
+    </div>
+
+    <div class="book-card jing-hua">
+      <div class="book-header">
+        <h3 class="book-title">《鏡花緣》</h3>
+        <div class="book-meta">
+          <span class="book-author">李汝珍 著</span>
+        </div>
+      </div>
+      <div class="book-body">
+        <ul class="chapter-list">
+          <li class="chapter-item">
+            <a href="/pages/鏡花緣/鏡花緣1.html" class="chapter-link">第一回　女魁星北斗垂景象　老王母西池賜芳筵</a>
+          </li>
+        </ul>
+        <p class="coming-soon">更多章節即將推出</p>
       </div>
     </div>
 
