@@ -334,6 +334,9 @@ title: 閱讀古文
       <li class="chapter-item">
         <a href="/pages/儒林外史/儒林外史1.html" class="chapter-link">第一回　說楔子敷陳大義<br>借名流隱括全文</a>
       </li>
+      <li class="chapter-item">
+        <a href="/pages/儒林外史/儒林外史2.html" class="chapter-link">第二回　說楔子敷陳大義<br>借名流隱括全文</a>
+      </li>
     </ul>
     <p class="coming-soon">更多章節即將推出</p>
   </div>
