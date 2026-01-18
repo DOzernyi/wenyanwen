@@ -1,0 +1,75 @@
+.connection-diagram {
+  position: relative;
+  padding: 20px 0;
+  margin: 30px 0;
+  overflow-x: auto;
+  min-height: 200px;
+}
+
+.connection-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  position: relative;
+  z-index: 2;
+}
+
+.connection-row-top {
+  margin-bottom: 60px;
+}
+
+.connection-row-bottom {
+  margin-top: 0;
+}
+
+.word-box {
+  padding: 8px 16px;
+  background-color: #f5f5f5;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  text-align: center;
+  min-width: 40px;
+  transition: all 0.2s ease;
+}
+
+.word-box:hover {
+  background-color: #e8f4fc;
+  border-color: #267CB9;
+}
+
+.word-top {
+  background-color: #e8f4fc;
+  border-color: #267CB9;
+}
+
+.word-bottom {
+  background-color: #fef6e8;
+  border-color: #d4a017;
+}
+
+.connection-lines {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.connection-lines line {
+  stroke-width: 2;
+  fill: none;
+}
+
+.connection-lines line.pair-line {
+  stroke: #666;
+  stroke-dasharray: none;
+}
+
+.connection-diagram[data-color-mode="true"] .pair-line-0 { stroke: #e74c3c; }
+.connection-diagram[data-color-mode="true"] .pair-line-1 { stroke: #3498db; }
+.connection-diagram[data-color-mode="true"] .pair-line-2 { stroke: #2ecc71; }
+.connection-diagram[data-color-mode="true"] .pair-line-3 { stroke: #9b59b6; }
+.connection-diagram[data-color-mode="true"] .pair-line-4 { stroke: #f39c12; }
+.connection-diagram[data-color-mode="true"] .pair-line-5 { stroke: #1abc9c; }
+.connection-diagram[data-color-mode="true"] .pair-line-6 { stroke: #e91e63; }
+.connection-diagram[data-color-mode="true"] .pair-line-7 { stroke: #00bcd4; }

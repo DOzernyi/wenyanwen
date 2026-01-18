@@ -1,0 +1,70 @@
+.annotated-container {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+.annotated-main {
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.annotated-main .note-ref {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  font-size: 12px;
+  border-radius: 50%;
+  background-color: #267CB9;
+  color: white;
+  text-decoration: none;
+  vertical-align: super;
+  margin: 0 2px;
+  cursor: pointer;
+}
+
+.annotated-main .note-ref:hover {
+  opacity: 0.8;
+}
+
+.annotated-notes {
+  position: relative;
+}
+
+.sidenote {
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+  border-left: 4px solid #267CB9;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+  border-radius: 0 4px 4px 0;
+}
+
+.sidenote .note-marker {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 11px;
+  border-radius: 50%;
+  background-color: #267CB9;
+  color: white;
+  margin-right: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .annotated-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .annotated-notes {
+    border-top: 1px solid #e5e5e5;
+    padding-top: 20px;
+  }
+}

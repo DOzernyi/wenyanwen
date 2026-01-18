@@ -1,0 +1,13 @@
+<div class="annotated-container">
+  <div class="annotated-main">
+    {{ include.content }}
+  </div>
+  <div class="annotated-notes">
+    {% for note in include.notes %}
+    <div class="sidenote" id="note-{{ note.id }}" style="{% if note.color %}border-left-color: {{ note.color }};{% endif %}">
+      <span class="note-marker" style="{% if note.color %}background-color: {{ note.color }};{% endif %}">{{ note.id }}</span>
+      {{ note.text }}
+    </div>
+    {% endfor %}
+  </div>
+</div>

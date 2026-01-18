@@ -1,0 +1,13 @@
+<div class="connection-diagram" data-pairs='{{ include.pairs | jsonify }}'>
+  <div class="connection-row connection-row-top">
+    {% for word in include.sentence1 %}
+    <div class="word-box word-top" data-index="{{ forloop.index0 }}">{{ word }}</div>
+    {% endfor %}
+  </div>
+  <svg class="connection-lines"></svg>
+  <div class="connection-row connection-row-bottom">
+    {% for word in include.sentence2 %}
+    <div class="word-box word-bottom" data-index="{{ forloop.index0 }}">{{ word }}</div>
+    {% endfor %}
+  </div>
+</div>

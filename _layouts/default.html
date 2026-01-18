@@ -35,13 +35,15 @@
         <p class="view"><a href="{{ site.github.owner_url }}">View My GitHub Profile</a></p>
         {% endif %} -->
 
-        <!-- {% if site.show_downloads %}
+        {% comment %}
+        {% if site.show_downloads %}
         <ul class="downloads">
-          <li><a href="{{ https://dozernyi.com }}">Download <strong>ZIP File</strong></a></li> <\br>
-          <li><a href="{{ https://dozernyi.com }}">Download <strong>TAR Ball</strong></a></li><\br>
-          <li><a href="{{ https://dozernyi.com }}">View On <strong>GitHub</strong></a></li><\br>
+          <li><a href="https://dozernyi.com">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://dozernyi.com">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://dozernyi.com">View On <strong>GitHub</strong></a></li>
         </ul>
-        {% endif %} -->
+        {% endif %}
+        {% endcomment %}
       </header>
       <section>
 
@@ -55,5 +57,6 @@
       </footer>
     </div>
     <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
+    <script src="{{ "/assets/js/connection-diagram.js" | relative_url }}"></script>
   </body>
 </html>
