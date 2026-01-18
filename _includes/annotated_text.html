@@ -4,9 +4,9 @@
   </div>
   <div class="annotated-notes">
     {% for note in include.notes %}
-    <div class="sidenote" style="border-left-color: {{ note.color | default: '#267CB9' }};">
-      <span class="note-marker" style="background-color: {{ note.color | default: '#267CB9' }};">{{ note.id }}</span>
-      {{ note.text }}
+    <div class="sidenote" style="border-left-color: {{ note[1].color | default: '#267CB9' }};">
+      <span class="note-marker" style="background-color: {{ note[1].color | default: '#267CB9' }};">{{ note[0] }}</span>
+      {{ note[1].text }}
     </div>
     {% endfor %}
   </div>

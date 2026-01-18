@@ -33,25 +33,33 @@ This site uses the Jekyll static site generator with the minimal theme. It inclu
 
 ### 1. Annotated Text with Side Footnotes (Simple Syntax)
 
-**Step 1:** Define notes in page front-matter:
+**Step 1:** Define notes in page front-matter using a map format (simpler than list):
 
 ```yaml
 ---
 notes:
-  - id: 1
+  解讀1:
     color: "#e74c3c"
     text: "First footnote explanation"
-  - id: 2
+  注2:
     color: "#3498db"
     text: "Second footnote explanation"
 ---
+```
+
+To add a new note, just add a new ID followed by colon, then indent `color` and `text`:
+
+```yaml
+  新注釋:
+    color: "#ff6600"
+    text: "Your new note"
 ```
 
 **Step 2:** Use `fn.html` for inline markers and `annotated_text.html` for the container:
 
 ```liquid
 {% capture main_text %}
-Your text{% include fn.html id="1" color="#e74c3c" %} with markers.
+Your text{% include fn.html id="解讀1" color="#e74c3c" %} with markers.
 {% endcapture %}
 
 {% include annotated_text.html content=main_text notes=page.notes %}
