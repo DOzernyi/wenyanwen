@@ -48,6 +48,10 @@ Each footnote includes:
 - `color` - The color for this footnote (e.g., "#e74c3c")
 - `text` - The explanation text shown in the sidebar
 
+**Positioning behavior:**
+- Footnotes are positioned adjacent to their anchored text (not accumulated at top)
+- When a paragraph has many footnotes that extend beyond its height, subsequent paragraphs are automatically pushed down to avoid overlap
+
 To add a new footnote, just add it inline:
 ```liquid
 {% include fn.html id="新注釋" color="#ff6600" text="Your explanation" %}
