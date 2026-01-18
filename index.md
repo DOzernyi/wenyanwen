@@ -22,13 +22,40 @@ title: 閱讀古文
   margin-bottom: 50px;
 }
 
-.section-header {
+.collapsible-section {
+  margin-bottom: 50px;
+}
+
+.collapsible-section summary {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 28px;
   padding-bottom: 16px;
   border-bottom: 2px solid rgba(0,0,0,0.08);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.collapsible-section summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapsible-section summary::after {
+  content: "▼";
+  margin-left: auto;
+  font-size: 0.8em;
+  color: var(--ink-light);
+  transition: transform 0.3s ease;
+}
+
+.collapsible-section:not([open]) summary::after {
+  transform: rotate(-90deg);
+}
+
+.collapsible-section summary:hover {
+  opacity: 0.8;
 }
 
 .section-icon {
@@ -41,6 +68,15 @@ title: 閱讀古文
   margin: 0;
   font-weight: 500;
   letter-spacing: 0.1em;
+}
+
+.section-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .level-group {
@@ -291,106 +327,108 @@ title: 閱讀古文
 </style>
 
 <!-- 文言文教材 Section -->
-<div class="section-block">
-  <div class="section-header">
+<details class="collapsible-section" open>
+  <summary>
     <span class="section-icon">📜</span>
     <h2 class="section-title">文言文教材</h2>
-  </div>
+  </summary>
+  <div class="section-content">
+    <div class="level-group">
+      <div class="level-label beginner">初級</div>
+      <div class="text-list">
+        <div class="text-item"><a href="/pages/白話文/入門/畫蛇添足.html">畫蛇添足</a><span class="text-source">《戰國策・齊策》</span></div>
+        <div class="text-item"><a href="/pages/白話文/入門/以五十步笑百步.html">以五十步笑百步</a><span class="text-source">《孟子・梁惠王上》</span></div>
+        <div class="text-item"><a href="/pages/白話文/入門/魚之樂.html">魚之樂</a><span class="text-source">《莊子・秋水》</span></div>
+        <div class="text-item"><a href="/pages/白話文/入門/曹劌論戰.html">曹劌論戰</a><span class="text-source">《左傳・莊公十年》</span></div>
+      </div>
+    </div>
 
-  <div class="level-group">
-    <div class="level-label beginner">初級</div>
-    <div class="text-list">
-      <div class="text-item"><a href="/pages/白話文/入門/畫蛇添足.html">畫蛇添足</a><span class="text-source">《戰國策・齊策》</span></div>
-      <div class="text-item"><a href="/pages/白話文/入門/以五十步笑百步.html">以五十步笑百步</a><span class="text-source">《孟子・梁惠王上》</span></div>
-      <div class="text-item"><a href="/pages/白話文/入門/魚之樂.html">魚之樂</a><span class="text-source">《莊子・秋水》</span></div>
-      <div class="text-item"><a href="/pages/白話文/入門/曹劌論戰.html">曹劌論戰</a><span class="text-source">《左傳・莊公十年》</span></div>
+    <div class="level-group">
+      <div class="level-label intermediate">中級</div>
+      <div class="text-list">
+        <div class="text-item"><a href="/pages/白話文/入門/大學.html">大學</a><span class="text-source">《禮記・大學》</span></div>
+        <div class="text-item"><a href="/pages/白話文/入門/兼愛.html">兼愛</a><span class="text-source">《墨子・兼愛》</span></div>
+        <div class="text-item"><a href="/pages/白話文/入門/告子上選.html">告子上選</a><span class="text-source">《孟子・告子上》</span></div>
+        <div class="text-item"><a href="/pages/白話文/入門/王制.html">王制</a><span class="text-source">《荀子・王制》</span></div>
+        <div class="text-item"><a href="/pages/白話文/入門/太王去邠.html">太王去邠</a><span class="text-source">《孟子・梁惠王下》</span></div>
+      </div>
+    </div>
+
+    <div class="level-group">
+      <div class="level-label advanced">高級</div>
+      <div class="text-list">
+        <div class="text-item"><a href="/pages/白話文/入門/屠羊說不受賞.html">屠羊說不受賞</a><span class="text-source">《莊子・讓王》</span></div>
+        <div class="text-item"><a href="/pages/白話文/入門/馮諼客孟嘗君.html">馮諼客孟嘗君</a><span class="text-source">《戰國策・齊策》</span></div>
+        <div class="text-item"><a href="/pages/白話文/入門/項羽本紀.html">項羽本紀</a><span class="text-source">《史記・項羽本紀》</span></div>
+        <div class="text-item"><a href="/pages/白話文/燕丹子.html">燕丹子</a><span class="text-source">《燕丹子》</span></div>
+      </div>
     </div>
   </div>
-
-  <div class="level-group">
-    <div class="level-label intermediate">中級</div>
-    <div class="text-list">
-      <div class="text-item"><a href="/pages/白話文/入門/大學.html">大學</a><span class="text-source">《禮記・大學》</span></div>
-      <div class="text-item"><a href="/pages/白話文/入門/兼愛.html">兼愛</a><span class="text-source">《墨子・兼愛》</span></div>
-      <div class="text-item"><a href="/pages/白話文/入門/告子上選.html">告子上選</a><span class="text-source">《孟子・告子上》</span></div>
-      <div class="text-item"><a href="/pages/白話文/入門/王制.html">王制</a><span class="text-source">《荀子・王制》</span></div>
-      <div class="text-item"><a href="/pages/白話文/入門/太王去邠.html">太王去邠</a><span class="text-source">《孟子・梁惠王下》</span></div>
-    </div>
-  </div>
-
-  <div class="level-group">
-    <div class="level-label advanced">高級</div>
-    <div class="text-list">
-      <div class="text-item"><a href="/pages/白話文/入門/屠羊說不受賞.html">屠羊說不受賞</a><span class="text-source">《莊子・讓王》</span></div>
-      <div class="text-item"><a href="/pages/白話文/入門/馮諼客孟嘗君.html">馮諼客孟嘗君</a><span class="text-source">《戰國策・齊策》</span></div>
-      <div class="text-item"><a href="/pages/白話文/入門/項羽本紀.html">項羽本紀</a><span class="text-source">《史記・項羽本紀》</span></div>
-      <div class="text-item"><a href="/pages/白話文/燕丹子.html">燕丹子</a><span class="text-source">《燕丹子》</span></div>
-    </div>
-  </div>
-</div>
+</details>
 
 <!-- 古典小說注 Section -->
-<div class="section-block">
-  <div class="section-header">
+<details class="collapsible-section" open>
+  <summary>
     <span class="section-icon">📚</span>
     <h2 class="section-title">古典小說注</h2>
-  </div>
+  </summary>
+  <div class="section-content">
+    <div class="book-grid">
 
-  <div class="book-grid">
-
-  <div class="book-card hong-lou">
-    <div class="book-header">
-      <h3 class="book-title">《紅樓夢》</h3>
-      <div class="book-meta">
-        <span class="book-author">曹雪芹 著</span>
+    <div class="book-card hong-lou">
+      <div class="book-header">
+        <h3 class="book-title">《紅樓夢》</h3>
+        <div class="book-meta">
+          <span class="book-author">曹雪芹 著</span>
+        </div>
+      </div>
+      <div class="book-body">
+        <ul class="chapter-list">
+          <li class="chapter-item">
+            <a href="/pages/紅樓夢/紅樓夢1.html" class="chapter-link">第一回　甄士隱夢幻識通靈　賈雨村風塵懷閨秀</a>
+          </li>
+        </ul>
+        <p class="coming-soon">更多章節即將推出</p>
       </div>
     </div>
-    <div class="book-body">
-      <ul class="chapter-list">
-        <li class="chapter-item">
-          <a href="/pages/紅樓夢/紅樓夢1.html" class="chapter-link">第一回　甄士隱夢幻識通靈　賈雨村風塵懷閨秀</a>
-        </li>
-      </ul>
-      <p class="coming-soon">更多章節即將推出</p>
-    </div>
-  </div>
 
-  <div class="book-card ru-lin">
-    <div class="book-header">
-      <h3 class="book-title">《儒林外史》</h3>
-      <div class="book-meta">
-        <span class="book-author">吳敬梓 著</span>
+    <div class="book-card ru-lin">
+      <div class="book-header">
+        <h3 class="book-title">《儒林外史》</h3>
+        <div class="book-meta">
+          <span class="book-author">吳敬梓 著</span>
+        </div>
+      </div>
+      <div class="book-body">
+        <ul class="chapter-list">
+          <li class="chapter-item">
+            <a href="/pages/儒林外史/儒林外史1.html" class="chapter-link">第一回　說楔子敷陳大義　借名流隱括全文</a>
+          </li>
+        </ul>
+        <p class="coming-soon">更多章節即將推出</p>
       </div>
     </div>
-    <div class="book-body">
-      <ul class="chapter-list">
-        <li class="chapter-item">
-          <a href="/pages/儒林外史/儒林外史1.html" class="chapter-link">第一回　說楔子敷陳大義　借名流隱括全文</a>
-        </li>
-      </ul>
-      <p class="coming-soon">更多章節即將推出</p>
-    </div>
-  </div>
 
-  <div class="book-card shui-hu">
-    <div class="book-header">
-      <h3 class="book-title">《水滸傳》</h3>
-      <div class="book-meta">
-        <span class="book-author">施耐庵 著</span>
+    <div class="book-card shui-hu">
+      <div class="book-header">
+        <h3 class="book-title">《水滸傳》</h3>
+        <div class="book-meta">
+          <span class="book-author">施耐庵 著</span>
+        </div>
+      </div>
+      <div class="book-body">
+        <ul class="chapter-list">
+          <li class="chapter-item" style="background: rgba(0,0,0,0.03); border-left-color: #ccc;">
+            <span class="chapter-link" style="color: var(--ink-light); font-style: italic;">敬請期待</span>
+          </li>
+        </ul>
+        <p class="coming-soon">章節準備中</p>
       </div>
     </div>
-    <div class="book-body">
-      <ul class="chapter-list">
-        <li class="chapter-item" style="background: rgba(0,0,0,0.03); border-left-color: #ccc;">
-          <span class="chapter-link" style="color: var(--ink-light); font-style: italic;">敬請期待</span>
-        </li>
-      </ul>
-      <p class="coming-soon">章節準備中</p>
+
     </div>
   </div>
-
-  </div>
-</div>
+</details>
 
 <!-- 其他資源 Section -->
 <div class="resources-section">
