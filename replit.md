@@ -33,24 +33,25 @@ This site uses the Jekyll static site generator with the minimal theme. It inclu
 
 ### 1. Annotated Text with Side Footnotes (Simple Syntax)
 
-**Step 1:** Define notes in page front-matter using a map format (simpler than list):
+**Step 1:** Define notes in page front-matter (list format):
 
 ```yaml
 ---
 notes:
-  解讀1:
+  - id: 解讀1
     color: "#e74c3c"
     text: "First footnote explanation"
-  注2:
+  - id: 注2
     color: "#3498db"
     text: "Second footnote explanation"
 ---
 ```
 
-To add a new note, just add a new ID followed by colon, then indent `color` and `text`:
+**IMPORTANT:** Each note entry must start with exactly 2 spaces, then `- id:`. The `color` and `text` lines must have exactly 4 spaces of indentation.
 
+To add a new note, copy this template exactly:
 ```yaml
-  新注釋:
+  - id: 新注釋
     color: "#ff6600"
     text: "Your new note"
 ```
