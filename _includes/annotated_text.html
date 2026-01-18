@@ -13,18 +13,27 @@
   var annotatedContainer = container.parentElement;
   var refs = container.querySelectorAll('.note-ref[data-note-text]');
   var sidenotes = [];
-  var seen = {};
+  var labelCounters = {};
 
   refs.forEach(function(ref) {
-    var id = ref.getAttribute('data-note-id');
+    var label = ref.getAttribute('data-note-label') || '注';
     var text = ref.getAttribute('data-note-text');
     var color = ref.getAttribute('data-note-color') || '#267CB9';
-    if (text && !seen[id]) {
-      seen[id] = true;
+    
+    if (!labelCounters[label]) {
+      labelCounters[label] = 0;
+    }
+    labelCounters[label]++;
+    var numberedId = label + labelCounters[label];
+    
+    ref.textContent = numberedId;
+    ref.setAttribute('data-note-id', numberedId);
+    
+    if (text) {
       var note = document.createElement('div');
       note.className = 'sidenote';
       note.style.borderLeftColor = color;
-      note.innerHTML = '<span class="note-marker" style="background-color: ' + color + ';">' + id + '</span> ' + text;
+      note.innerHTML = '<span class="note-marker" style="background-color: ' + color + ';">' + numberedId + '</span> ' + text;
       notesContainer.appendChild(note);
       
       var parentP = ref.closest('p');

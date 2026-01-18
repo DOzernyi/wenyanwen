@@ -31,31 +31,32 @@ This site uses the Jekyll static site generator with the minimal theme. It inclu
 
 ## Custom Features
 
-### 1. Annotated Text with Side Footnotes (Inline Syntax - No YAML needed!)
+### 1. Annotated Text with Auto-Numbered Footnotes
 
-Add footnotes directly inline with your text - no separate YAML definition required:
+Add footnotes with **automatic numbering** by label type. Just specify the label (like "注", "解讀", "脂批") and the system adds the number for you:
 
 ```liquid
 {% capture main_text %}
-Your text{% include fn.html id="注1" color="#e74c3c" text="Your explanation here" %} continues.
+<p>
+  Your text{% include fn.html label="注" color="#e74c3c" text="First note" %} here.
+  More text{% include fn.html label="解讀" color="#3498db" text="First interpretation" %} continues.
+  Another{% include fn.html label="注" color="#e74c3c" text="Second note" %} follows.
+</p>
 {% endcapture %}
 
 {% include annotated_text.html content=main_text %}
 ```
 
+This displays as: **注1**, **解讀1**, **注2** - each label type has its own counter!
+
 Each footnote includes:
-- `id` - The footnote ID shown in the marker (e.g., "注1", "解讀2")  
+- `label` - The footnote label type (e.g., "注", "解讀", "脂批") - numbers are added automatically
 - `color` - The color for this footnote (e.g., "#e74c3c")
 - `text` - The explanation text shown in the sidebar
 
 **Positioning behavior:**
 - Footnotes are positioned adjacent to their anchored text (not accumulated at top)
 - When a paragraph has many footnotes that extend beyond its height, subsequent paragraphs are automatically pushed down to avoid overlap
-
-To add a new footnote, just add it inline:
-```liquid
-{% include fn.html id="新注釋" color="#ff6600" text="Your explanation" %}
-```
 
 ### 2. Connection Diagrams
 
