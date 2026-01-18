@@ -63,36 +63,45 @@ title: 閱讀古文
 .level-label.intermediate { border-left: 3px solid var(--azure); }
 .level-label.advanced { border-left: 3px solid var(--vermilion); }
 
-.text-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 12px;
+.text-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.text-card {
+.text-item {
   background: var(--paper-light);
   border-radius: 8px;
-  padding: 14px 16px;
+  padding: 14px 18px;
   border: 1px solid rgba(0,0,0,0.06);
   transition: all 0.2s ease;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
 }
 
-.text-card:hover {
-  transform: translateY(-2px);
+.text-item:hover {
+  transform: translateX(4px);
   box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   background: white;
 }
 
-.text-card a {
+.text-item a {
   color: var(--ink-dark);
   text-decoration: none;
-  font-size: 1em;
-  display: block;
+  font-size: 1.05em;
+  font-weight: 500;
 }
 
-.text-card:hover a {
+.text-item:hover a {
   color: var(--vermilion);
+}
+
+.text-source {
+  color: var(--ink-light);
+  font-size: 0.9em;
+  font-style: italic;
 }
 
 .book-grid {
@@ -274,8 +283,9 @@ title: 閱讀古文
   .book-grid {
     grid-template-columns: 1fr;
   }
-  .text-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .text-item {
+    flex-direction: column;
+    gap: 4px;
   }
 }
 </style>
@@ -289,32 +299,32 @@ title: 閱讀古文
 
   <div class="level-group">
     <div class="level-label beginner">初級</div>
-    <div class="text-grid">
-      <div class="text-card"><a href="/pages/白話文/入門/畫蛇添足.html">畫蛇添足</a></div>
-      <div class="text-card"><a href="/pages/白話文/入門/以五十步笑百步.html">以五十步笑百步</a></div>
-      <div class="text-card"><a href="/pages/白話文/入門/魚之樂.html">魚之樂</a></div>
-      <div class="text-card"><a href="/pages/白話文/入門/曹劌論戰.html">曹劌論戰</a></div>
+    <div class="text-list">
+      <div class="text-item"><a href="/pages/白話文/入門/畫蛇添足.html">畫蛇添足</a><span class="text-source">《戰國策・齊策》</span></div>
+      <div class="text-item"><a href="/pages/白話文/入門/以五十步笑百步.html">以五十步笑百步</a><span class="text-source">《孟子・梁惠王上》</span></div>
+      <div class="text-item"><a href="/pages/白話文/入門/魚之樂.html">魚之樂</a><span class="text-source">《莊子・秋水》</span></div>
+      <div class="text-item"><a href="/pages/白話文/入門/曹劌論戰.html">曹劌論戰</a><span class="text-source">《左傳・莊公十年》</span></div>
     </div>
   </div>
 
   <div class="level-group">
     <div class="level-label intermediate">中級</div>
-    <div class="text-grid">
-      <div class="text-card"><a href="/pages/白話文/入門/大學.html">大學</a></div>
-      <div class="text-card"><a href="/pages/白話文/入門/兼愛.html">兼愛</a></div>
-      <div class="text-card"><a href="/pages/白話文/入門/告子上選.html">告子上選</a></div>
-      <div class="text-card"><a href="/pages/白話文/入門/王制.html">王制</a></div>
-      <div class="text-card"><a href="/pages/白話文/入門/太王去邠.html">太王去邠</a></div>
+    <div class="text-list">
+      <div class="text-item"><a href="/pages/白話文/入門/大學.html">大學</a><span class="text-source">《禮記・大學》</span></div>
+      <div class="text-item"><a href="/pages/白話文/入門/兼愛.html">兼愛</a><span class="text-source">《墨子・兼愛》</span></div>
+      <div class="text-item"><a href="/pages/白話文/入門/告子上選.html">告子上選</a><span class="text-source">《孟子・告子上》</span></div>
+      <div class="text-item"><a href="/pages/白話文/入門/王制.html">王制</a><span class="text-source">《荀子・王制》</span></div>
+      <div class="text-item"><a href="/pages/白話文/入門/太王去邠.html">太王去邠</a><span class="text-source">《孟子・梁惠王下》</span></div>
     </div>
   </div>
 
   <div class="level-group">
     <div class="level-label advanced">高級</div>
-    <div class="text-grid">
-      <div class="text-card"><a href="/pages/白話文/入門/屠羊說不受賞.html">屠羊說不受賞</a></div>
-      <div class="text-card"><a href="/pages/白話文/入門/馮諼客孟嘗君.html">馮諼客孟嘗君</a></div>
-      <div class="text-card"><a href="/pages/白話文/入門/項羽本紀.html">項羽本紀</a></div>
-      <div class="text-card"><a href="/pages/白話文/燕丹子.html">燕丹子</a></div>
+    <div class="text-list">
+      <div class="text-item"><a href="/pages/白話文/入門/屠羊說不受賞.html">屠羊說不受賞</a><span class="text-source">《莊子・讓王》</span></div>
+      <div class="text-item"><a href="/pages/白話文/入門/馮諼客孟嘗君.html">馮諼客孟嘗君</a><span class="text-source">《戰國策・齊策》</span></div>
+      <div class="text-item"><a href="/pages/白話文/入門/項羽本紀.html">項羽本紀</a><span class="text-source">《史記・項羽本紀》</span></div>
+      <div class="text-item"><a href="/pages/白話文/燕丹子.html">燕丹子</a><span class="text-source">《燕丹子》</span></div>
     </div>
   </div>
 </div>
