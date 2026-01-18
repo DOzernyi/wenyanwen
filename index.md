@@ -4,144 +4,349 @@ title: 閱讀古文
 ---
 
 <style>
-.toc-container {
-  margin: 30px 0;
+:root {
+  --ink-dark: #2b2b2b;
+  --ink-medium: #4a4a4a;
+  --ink-light: #6b6b6b;
+  --paper-warm: #f7f2e7;
+  --paper-light: #fdfbf7;
+  --vermilion: #b24a3b;
+  --vermilion-light: #d4675a;
+  --jade: #4d7c6c;
+  --jade-light: #6a9b8a;
+  --gold-accent: #c9a227;
 }
 
-.book-section {
-  background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+.hero-section {
+  text-align: center;
+  padding: 40px 20px 50px;
+  margin-bottom: 40px;
+  background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper-light) 100%);
+  border-radius: 8px;
+  position: relative;
+}
+
+.hero-section::before {
+  content: "文";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 180px;
+  color: rgba(0,0,0,0.03);
+  font-family: 'cwTeXMing', serif;
+  z-index: 0;
+}
+
+.hero-title {
+  font-size: 2.2em;
+  color: var(--ink-dark);
+  margin: 0 0 12px 0;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-subtitle {
+  font-size: 1.1em;
+  color: var(--ink-light);
+  margin: 0;
+  font-weight: 300;
+  position: relative;
+  z-index: 1;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 35px 0;
+  color: var(--ink-light);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ccc, transparent);
+}
+
+.divider-icon {
+  padding: 0 20px;
+  font-size: 1.2em;
+  color: var(--gold-accent);
+}
+
+.toc-section-title {
+  text-align: center;
+  font-size: 1.4em;
+  color: var(--ink-medium);
+  margin-bottom: 30px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+  margin-bottom: 40px;
+}
+
+.book-card {
+  background: var(--paper-light);
   border-radius: 12px;
-  padding: 24px 28px;
-  margin-bottom: 24px;
-  border-left: 4px solid #267CB9;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.book-header {
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  position: relative;
+}
+
+.book-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.08), transparent);
+}
+
+.book-card.hong-lou .book-header {
+  background: linear-gradient(135deg, rgba(178,74,59,0.08) 0%, transparent 100%);
+}
+
+.book-card.ru-lin .book-header {
+  background: linear-gradient(135deg, rgba(77,124,108,0.08) 0%, transparent 100%);
 }
 
 .book-title {
-  font-size: 1.6em;
-  color: #333;
+  font-size: 1.5em;
+  color: var(--ink-dark);
   margin: 0 0 8px 0;
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.book-card.hong-lou .book-title {
+  color: var(--vermilion);
+}
+
+.book-card.ru-lin .book-title {
+  color: var(--jade);
+}
+
+.book-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink-light);
+  font-size: 0.9em;
 }
 
 .book-author {
-  color: #666;
-  font-size: 0.95em;
-  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.book-author::before {
+  content: "✦";
+  font-size: 0.7em;
+  opacity: 0.5;
+}
+
+.book-body {
+  padding: 20px 24px 24px;
 }
 
 .chapter-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 16px 0;
 }
 
-.chapter-list li {
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
+.chapter-item {
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 8px;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
 }
 
-.chapter-list li:last-child {
-  border-bottom: none;
+.book-card.hong-lou .chapter-item {
+  border-left-color: var(--vermilion);
 }
 
-.chapter-list a {
-  color: #267CB9;
+.book-card.ru-lin .chapter-item {
+  border-left-color: var(--jade);
+}
+
+.chapter-item:hover {
+  background: rgba(255,255,255,0.9);
+  padding-left: 20px;
+}
+
+.chapter-link {
+  color: var(--ink-dark);
   text-decoration: none;
-  font-size: 1.1em;
-  transition: color 0.2s;
+  font-size: 1em;
+  display: block;
+  line-height: 1.5;
 }
 
-.chapter-list a:hover {
-  color: #1a5a8a;
-  text-decoration: underline;
+.chapter-link:hover {
+  color: var(--vermilion);
+}
+
+.book-card.ru-lin .chapter-link:hover {
+  color: var(--jade);
 }
 
 .coming-soon {
-  color: #999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-light);
+  font-size: 0.85em;
   font-style: italic;
-  font-size: 0.95em;
-  padding: 8px 0;
+  padding: 8px 0 0;
+  border-top: 1px dashed rgba(0,0,0,0.1);
 }
 
-.book-section.hong-lou {
-  border-left-color: #e74c3c;
-}
-
-.book-section.ru-lin {
-  border-left-color: #27ae60;
-}
-
-.intro-text {
-  font-size: 1.15em;
-  color: #444;
-  line-height: 1.8;
-  margin-bottom: 30px;
+.coming-soon::before {
+  content: "◇";
+  font-size: 0.8em;
 }
 
 .resources-section {
-  margin-top: 40px;
-  padding-top: 30px;
-  border-top: 1px solid #e5e5e5;
+  margin-top: 50px;
+  padding: 30px;
+  background: var(--paper-warm);
+  border-radius: 12px;
 }
 
-.resources-section h2 {
-  font-size: 1.3em;
-  color: #555;
-  margin-bottom: 16px;
+.resources-title {
+  font-size: 1.2em;
+  color: var(--ink-medium);
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid rgba(0,0,0,0.08);
+  letter-spacing: 0.08em;
 }
 
-.resources-list {
-  list-style: none;
-  padding: 0;
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
 }
 
-.resources-list li {
-  padding: 8px 0;
-}
-
-.resources-list a {
-  color: #267CB9;
+.resource-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: white;
+  border-radius: 8px;
+  color: var(--ink-dark);
   text-decoration: none;
+  font-size: 0.95em;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0,0,0,0.05);
 }
 
-.resources-list a:hover {
-  text-decoration: underline;
+.resource-link:hover {
+  background: var(--paper-light);
+  transform: translateX(4px);
+  color: var(--vermilion);
+}
+
+.resource-link::before {
+  content: "→";
+  color: var(--gold-accent);
+  font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+  .hero-title {
+    font-size: 1.8em;
+  }
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 
-<p class="intro-text">
-  歡迎來到「閱讀古文」，這裡提供經典文學作品的註釋版本，幫助讀者理解古典漢語。
-</p>
-
-<div class="toc-container">
-
-<div class="book-section hong-lou">
-  <h2 class="book-title">《紅樓夢》</h2>
-  <p class="book-author">曹雪芹 著</p>
-  <ul class="chapter-list">
-    <li><a href="/pages/紅樓夢/紅樓夢1.html">第一回 甄士隱夢幻識通靈　賈雨村風塵懷閨秀</a></li>
-  </ul>
-  <p class="coming-soon">更多章節即將推出...</p>
+<div class="hero-section">
+  <h1 class="hero-title">閱讀古文</h1>
+  <p class="hero-subtitle">經典文學・註釋導讀・深入淺出</p>
 </div>
 
-<div class="book-section ru-lin">
-  <h2 class="book-title">《儒林外史》</h2>
-  <p class="book-author">吳敬梓 著</p>
-  <ul class="chapter-list">
-    <li><a href="/pages/儒林外史/儒林外史1.html">第一回 說楔子敷陳大義　借名流隱括全文</a></li>
-  </ul>
-  <p class="coming-soon">更多章節即將推出...</p>
+<div class="divider">
+  <span class="divider-icon">❖</span>
+</div>
+
+<h2 class="toc-section-title">經典選讀</h2>
+
+<div class="book-grid">
+
+<div class="book-card hong-lou">
+  <div class="book-header">
+    <h3 class="book-title">《紅樓夢》</h3>
+    <div class="book-meta">
+      <span class="book-author">曹雪芹 著</span>
+    </div>
+  </div>
+  <div class="book-body">
+    <ul class="chapter-list">
+      <li class="chapter-item">
+        <a href="/pages/紅樓夢/紅樓夢1.html" class="chapter-link">第一回　甄士隱夢幻識通靈<br>賈雨村風塵懷閨秀</a>
+      </li>
+    </ul>
+    <p class="coming-soon">更多章節即將推出</p>
+  </div>
+</div>
+
+<div class="book-card ru-lin">
+  <div class="book-header">
+    <h3 class="book-title">《儒林外史》</h3>
+    <div class="book-meta">
+      <span class="book-author">吳敬梓 著</span>
+    </div>
+  </div>
+  <div class="book-body">
+    <ul class="chapter-list">
+      <li class="chapter-item">
+        <a href="/pages/儒林外史/儒林外史1.html" class="chapter-link">第一回　說楔子敷陳大義<br>借名流隱括全文</a>
+      </li>
+    </ul>
+    <p class="coming-soon">更多章節即將推出</p>
+  </div>
 </div>
 
 </div>
 
 <div class="resources-section">
-  <h2>其他資源</h2>
-  <ul class="resources-list">
-    <li><a href="/pages/demo.html">功能示範</a> — 查看註釋文字與連線圖功能</li>
-    <li><a href="https://docs.google.com/document/d/17izkGXYQcVRLE7M4e6zg7eM_1IEPqxfL/edit?usp=sharing&ouid=114115133808191130329&rtpof=true&sd=true">屈原列傳</a></li>
-    <li><a href="https://docs.google.com/document/d/1u4yg8lehsZjKUoFGHDfxvp7VUWlGDR7X/edit?usp=sharing&ouid=114115133808191130329&rtpof=true&sd=true">離騷</a> 🛠</li>
-    <li><a href="https://docs.google.com/document/d/1dcgLw7Ky1fs8p-PPQmKK-l60tiahFK1g/edit?usp=sharing&ouid=114115133808191130329&rtpof=true&sd=true">尚書</a> 🛠</li>
-  </ul>
+  <h2 class="resources-title">其他資源</h2>
+  <div class="resources-grid">
+    <a href="/pages/demo.html" class="resource-link">功能示範</a>
+    <a href="https://docs.google.com/document/d/17izkGXYQcVRLE7M4e6zg7eM_1IEPqxfL/edit" class="resource-link">屈原列傳</a>
+    <a href="https://docs.google.com/document/d/1u4yg8lehsZjKUoFGHDfxvp7VUWlGDR7X/edit" class="resource-link">離騷</a>
+    <a href="https://docs.google.com/document/d/1dcgLw7Ky1fs8p-PPQmKK-l60tiahFK1g/edit" class="resource-link">尚書</a>
+  </div>
 </div>
