@@ -425,11 +425,11 @@ title: 閱讀古文
       </div>
       <div class="book-body">
         <ul class="chapter-list">
-          <li class="chapter-item" style="background: rgba(0,0,0,0.03); border-left-color: #ccc;">
-            <span class="chapter-link" style="color: var(--ink-light); font-style: italic;">敬請期待</span>
+          <li class="chapter-item">
+            <a href="/pages/水滸傳/水滸傳1.html" class="chapter-link">第一回　張天師祈禳瘟疫　洪太尉誤走妖魔</a>
           </li>
         </ul>
-        <p class="coming-soon">章節準備中</p>
+        <p class="coming-soon">更多章節即將推出</p>
       </div>
     </div>
 
