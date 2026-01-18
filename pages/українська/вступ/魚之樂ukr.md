@@ -3,10 +3,10 @@ layout: default
 ---
 <head>
   <!-- ... -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/earlyaccess/cwtexkai.css">
+  
   <style>
     body {
-     font-family: "cwTeXKai", serif;
+     
     }
     p.big {
       line-height: 3;

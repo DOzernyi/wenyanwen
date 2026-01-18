@@ -14,9 +14,10 @@ notes:
   - id: 注4
     color: "#9b59b6"
     text: "從師：跟從老師學習。終：最終。"
-  - id: 5
+   - id: 5
     color: "#9b59b6"
     text: "我想要寫的任何說明或注意。"
+
 ---
 
 # Feature Demo
