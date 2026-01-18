@@ -7,10 +7,14 @@
 </div>
 <script>
 (function() {
-  var container = document.getElementById('annotated-content-{{ include.id | default: "main" }}');
-  var notesContainer = document.getElementById('annotated-notes-{{ include.id | default: "main" }}');
+  var containerId = '{{ include.id | default: "main" }}';
+  var container = document.getElementById('annotated-content-' + containerId);
+  var notesContainer = document.getElementById('annotated-notes-' + containerId);
+  var annotatedContainer = container.parentElement;
   var refs = container.querySelectorAll('.note-ref[data-note-text]');
+  var sidenotes = [];
   var seen = {};
+
   refs.forEach(function(ref) {
     var id = ref.getAttribute('data-note-id');
     var text = ref.getAttribute('data-note-text');
@@ -22,7 +26,44 @@
       note.style.borderLeftColor = color;
       note.innerHTML = '<span class="note-marker" style="background-color: ' + color + ';">' + id + '</span> ' + text;
       notesContainer.appendChild(note);
+      sidenotes.push({ ref: ref, note: note });
     }
   });
+
+  function positionSidenotes() {
+    var isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+      sidenotes.forEach(function(item) {
+        item.note.style.position = 'static';
+        item.note.style.top = '';
+      });
+      return;
+    }
+
+    var containerRect = annotatedContainer.getBoundingClientRect();
+    var lastBottom = 0;
+
+    sidenotes.forEach(function(item) {
+      var refRect = item.ref.getBoundingClientRect();
+      var targetTop = refRect.top - containerRect.top;
+      
+      if (targetTop < lastBottom) {
+        targetTop = lastBottom;
+      }
+      
+      item.note.style.position = 'absolute';
+      item.note.style.top = targetTop + 'px';
+      item.note.style.left = '0';
+      item.note.style.right = '0';
+      
+      lastBottom = targetTop + item.note.offsetHeight + 8;
+    });
+  }
+
+  setTimeout(positionSidenotes, 50);
+  
+  window.addEventListener('resize', positionSidenotes);
+  window.addEventListener('load', positionSidenotes);
 })();
 </script>
