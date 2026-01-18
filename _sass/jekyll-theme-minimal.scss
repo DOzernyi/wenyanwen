@@ -67,14 +67,11 @@ a:hover small {
 
 .wrapper {
   width:1200px;
-  // left side is 270
-  // 1200-270 = 930
-  // 30px free room
   margin:0 auto;
 }
 
 section {
-  width:900px;
+  width:1020px;
   float:right;
   padding-bottom:50px;
 }
@@ -138,7 +135,7 @@ kbd {
 }
 
 header {
-  width:270px;
+  width:150px;
   float:left;
   position:fixed;
   -webkit-font-smoothing:subpixel-antialiased;
@@ -151,7 +148,7 @@ ul.downloads {
   background: #f4f4f4;
   border-radius:5px;
   border:1px solid #e0e0e0;
-  width:270px;
+  width:150px;
 }
 
 .downloads li {
@@ -224,7 +221,7 @@ hr {
 }
 
 footer {
-  width:270px;
+  width:150px;
   float:left;
   position:fixed;
   bottom:50px;
