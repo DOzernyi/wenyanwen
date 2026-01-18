@@ -65,9 +65,9 @@ Use connection diagrams to show word-by-word relationships between two sentences
 
 ## How to Use These Features
 
-### Adding Annotated Text (NEW SIMPLE METHOD)
+### Adding Annotated Text (Inline Method - No YAML Needed!)
 
-Just add the footnote inline with the text - no YAML needed!
+Just add footnotes directly inline with your text:
 
 ```liquid
 {% raw %}{% capture main_text %}
@@ -77,12 +77,12 @@ Your text{% include fn.html id="注1" color="#e74c3c" text="Your explanation her
 {% include annotated_text.html content=main_text %}{% endraw %}
 ```
 
-Each footnote marker includes:
-- `id` - The footnote ID shown in the marker (e.g., "注1", "解讀2")
+Each footnote includes:
+- `id` - The label shown in the marker (e.g., "注1", "解讀2")
 - `color` - The color for this footnote (e.g., "#e74c3c")
-- `text` - The explanation text shown in the sidebar
+- `text` - The explanation shown in the sidebar
 
-### Adding Connection Diagrams
+### Connection Diagrams
 
 ```html
 <div class="connection-diagram" data-pairs='[[0,1],[1,0]]'>
