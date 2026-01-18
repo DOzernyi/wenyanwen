@@ -13,7 +13,8 @@ This site uses the Jekyll static site generator with the minimal theme. It inclu
 ├── _layouts/            # Page layouts
 │   └── default.html     # Main layout
 ├── _includes/           # Reusable components
-│   ├── annotated_text.html    # Side footnotes component
+│   ├── fn.html          # Footnote marker (simple inline tag)
+│   ├── annotated_text.html  # Full annotated text container
 │   └── connection_diagram.html # Word connection diagram
 ├── _sass/               # SCSS stylesheets
 │   ├── jekyll-theme-minimal.scss
@@ -30,22 +31,30 @@ This site uses the Jekyll static site generator with the minimal theme. It inclu
 
 ## Custom Features
 
-### 1. Annotated Text with Side Footnotes
+### 1. Annotated Text with Side Footnotes (Simple Syntax)
 
-Displays text with color-coded footnotes in a side column. Usage:
+**Step 1:** Define notes in page front-matter:
 
-```html
-<div class="annotated-container">
-  <div class="annotated-main">
-    Your text with <span class="note-ref" style="background-color: #e74c3c;">1</span> markers.
-  </div>
-  <div class="annotated-notes">
-    <div class="sidenote" style="border-left-color: #e74c3c;">
-      <span class="note-marker" style="background-color: #e74c3c;">1</span>
-      Footnote text here.
-    </div>
-  </div>
-</div>
+```yaml
+---
+notes:
+  - id: 1
+    color: "#e74c3c"
+    text: "First footnote explanation"
+  - id: 2
+    color: "#3498db"
+    text: "Second footnote explanation"
+---
+```
+
+**Step 2:** Use `fn.html` for inline markers and `annotated_text.html` for the container:
+
+```liquid
+{% capture main_text %}
+Your text{% include fn.html id="1" color="#e74c3c" %} with markers.
+{% endcapture %}
+
+{% include annotated_text.html content=main_text notes=page.notes %}
 ```
 
 ### 2. Connection Diagrams

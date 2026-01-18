@@ -1,6 +1,19 @@
 ---
 layout: default
 title: Demo - Annotated Text & Connection Diagrams
+notes:
+  - id: 1
+    color: "#e74c3c"
+    text: "學者：求學的人。古時指讀書人。"
+  - id: 2
+    color: "#3498db"
+    text: "傳道：傳授道理。受業：教授學業。解惑：解答疑惑。"
+  - id: 3
+    color: "#2ecc71"
+    text: "生而知之：生來就懂得道理。孰：誰。"
+  - id: 4
+    color: "#9b59b6"
+    text: "從師：跟從老師學習。終：最終。"
 ---
 
 # Feature Demo
@@ -13,31 +26,13 @@ This page demonstrates the two main features: **annotated text with side footnot
 
 Use the annotated text component to display text with footnotes in a side column. Each footnote can have a different color.
 
-<div class="annotated-container">
-  <div class="annotated-main">
-    <p>
-      古之學者必有師<span class="note-ref" style="background-color: #e74c3c;">1</span>。師者，所以傳道受業解惑也<span class="note-ref" style="background-color: #3498db;">2</span>。人非生而知之者，孰能無惑<span class="note-ref" style="background-color: #2ecc71;">3</span>？惑而不從師，其為惑也，終不解矣<span class="note-ref" style="background-color: #9b59b6;">4</span>。
-    </p>
-  </div>
-  <div class="annotated-notes">
-    <div class="sidenote" style="border-left-color: #e74c3c;">
-      <span class="note-marker" style="background-color: #e74c3c;">1</span>
-      學者：求學的人。古時指讀書人。
-    </div>
-    <div class="sidenote" style="border-left-color: #3498db;">
-      <span class="note-marker" style="background-color: #3498db;">2</span>
-      傳道：傳授道理。受業：教授學業。解惑：解答疑惑。
-    </div>
-    <div class="sidenote" style="border-left-color: #2ecc71;">
-      <span class="note-marker" style="background-color: #2ecc71;">3</span>
-      生而知之：生來就懂得道理。孰：誰。
-    </div>
-    <div class="sidenote" style="border-left-color: #9b59b6;">
-      <span class="note-marker" style="background-color: #9b59b6;">4</span>
-      從師：跟從老師學習。終：最終。
-    </div>
-  </div>
-</div>
+{% capture main_text %}
+<p>
+  古之學者必有師{% include fn.html id="1" color="#e74c3c" %}。師者，所以傳道受業解惑也{% include fn.html id="2" color="#3498db" %}。人非生而知之者，孰能無惑{% include fn.html id="3" color="#2ecc71" %}？惑而不從師，其為惑也，終不解矣{% include fn.html id="4" color="#9b59b6" %}。
+</p>
+{% endcapture %}
+
+{% include annotated_text.html content=main_text notes=page.notes %}
 
 ---
 
@@ -85,24 +80,30 @@ Use connection diagrams to show word-by-word relationships between two sentences
 
 ## How to Use These Features
 
-### Annotated Text
+### Annotated Text (Simple Syntax)
 
-To create annotated text, use this HTML structure in your markdown:
+**Step 1:** Define your notes in the page front-matter:
 
-```html
-<div class="annotated-container">
-  <div class="annotated-main">
-    Your main text here with 
-    <span class="note-ref" style="background-color: #e74c3c;">1</span>
-    markers.
-  </div>
-  <div class="annotated-notes">
-    <div class="sidenote" style="border-left-color: #e74c3c;">
-      <span class="note-marker" style="background-color: #e74c3c;">1</span>
-      Your footnote explanation here.
-    </div>
-  </div>
-</div>
+```yaml
+---
+notes:
+  - id: 1
+    color: "#e74c3c"
+    text: "Your first footnote explanation"
+  - id: 2
+    color: "#3498db"
+    text: "Your second footnote explanation"
+---
+```
+
+**Step 2:** In your content, use the `fn.html` include for inline markers:
+
+```liquid
+{% raw %}{% capture main_text %}
+Your text here{% include fn.html id="1" color="#e74c3c" %} with markers.
+{% endcapture %}
+
+{% include annotated_text.html content=main_text notes=page.notes %}{% endraw %}
 ```
 
 ### Connection Diagrams
@@ -114,13 +115,11 @@ To create a connection diagram, use this structure:
   <div class="connection-row connection-row-top">
     <div class="word-box word-top" data-index="0">Word1</div>
     <div class="word-box word-top" data-index="1">Word2</div>
-    <div class="word-box word-top" data-index="2">Word3</div>
   </div>
   <svg class="connection-lines"></svg>
   <div class="connection-row connection-row-bottom">
     <div class="word-box word-bottom" data-index="0">Translation1</div>
     <div class="word-box word-bottom" data-index="1">Translation2</div>
-    <div class="word-box word-bottom" data-index="2">Translation3</div>
   </div>
 </div>
 ```
@@ -128,4 +127,3 @@ To create a connection diagram, use this structure:
 The `data-pairs` attribute defines which words connect:
 - `[0,1]` means word at index 0 (top) connects to word at index 1 (bottom)
 - Each connection gets a different color automatically
-- You can also specify a custom color: `[0,1,"#ff0000"]`
