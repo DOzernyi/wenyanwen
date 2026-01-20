@@ -384,9 +384,9 @@ title: 閱讀古文
 
     <div class="book-card hong-lou">
       <div class="book-header">
-        <h3 class="book-title">《紅樓夢》</h3>
+        <h3 class="book-title">《紅樓夢》(注)(批選)</h3>
         <div class="book-meta">
-          <span class="book-author">曹雪芹 著</span>
+          <span class="book-author">曹雪芹 著 (庚辰本為底本)</span>
         </div>
       </div>
       <div class="book-body">
@@ -394,6 +394,13 @@ title: 閱讀古文
           <li class="chapter-item">
             <a href="/pages/紅樓夢/紅樓夢1.html" class="chapter-link">第一回　甄士隱夢幻識通靈　賈雨村風塵懷閨秀</a>
           </li>
+          <li class="chapter-item">
+            <a href="/pages/紅樓夢/紅樓夢2.html" class="chapter-link">第二回 賈夫人仙逝揚州城 冷子興演說榮國府</a>
+          </li>
+          <li class="chapter-item">
+            <a href="/pages/紅樓夢/紅樓夢5.html" class="chapter-link">第五回 遊幻境指迷十二釵 飲仙醪曲演紅樓夢</a>
+          </li>
+
         </ul>
         <p class="coming-soon">更多章節即將推出</p>
       </div>
