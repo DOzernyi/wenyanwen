@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 閱讀古文
+title: 通讀古文
 ---
 
 <style>
