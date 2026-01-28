@@ -49,7 +49,6 @@ def parse_markdown_with_annotations(md_content):
         paragraphs_raw = re.findall(r'<p>(.*?)</p>', content, re.DOTALL)
     
     paragraphs = []
-    label_counters = {}
     
     for para_html in paragraphs_raw:
         para_html = para_html.strip()
@@ -77,15 +76,10 @@ def parse_markdown_with_annotations(md_content):
             color_val = color.group(1) if color else '#267CB9'
             text_val = text.group(1) if text else ''
             
-            if label_val not in label_counters:
-                label_counters[label_val] = 0
-            label_counters[label_val] += 1
-            numbered_label = f"{label_val}{label_counters[label_val]}"
-            
             if text_val:
                 segments.append({
                     'type': 'footnote',
-                    'label': numbered_label,
+                    'label': label_val,
                     'color': color_val,
                     'text': text_val
                 })
@@ -150,10 +144,11 @@ def create_vertical_docx(title, paragraphs, output_path):
                 run.font.size = Pt(14)
             elif segment['type'] == 'footnote':
                 color = hex_to_rgb(segment['color'])
-                footnote_text = f"【{segment['label']}】{segment['text']}"
+                color_hex = segment['color'].lstrip('#')
+                label_text = f"【{segment['label']}】"
                 
                 try:
-                    para.add_footnote(footnote_text)
+                    para.add_footnote(label_text + segment['text'])
                     
                     footnote_ref = para._element.xpath('.//w:footnoteReference')
                     if footnote_ref:
@@ -165,9 +160,38 @@ def create_vertical_docx(title, paragraphs, output_path):
                                 rPr = parse_xml(r'<w:rPr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"/>')
                                 parent_run.insert(0, rPr)
                             color_elem = parse_xml(
-                                f'<w:color w:val="{segment["color"].lstrip("#")}" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"/>'
+                                f'<w:color w:val="{color_hex}" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"/>'
                             )
                             rPr.append(color_elem)
+                    
+                    footnotes_part = doc.part.footnotes_part
+                    if footnotes_part is not None:
+                        footnotes_xml = footnotes_part._element
+                        all_footnotes = footnotes_xml.findall('.//' + qn('w:footnote'))
+                        if all_footnotes:
+                            last_footnote = all_footnotes[-1]
+                            runs = last_footnote.findall('.//' + qn('w:r'))
+                            label_len = len(label_text)
+                            char_count = 0
+                            for run_elem in runs:
+                                t_elem = run_elem.find(qn('w:t'))
+                                if t_elem is not None and t_elem.text:
+                                    text_in_run = t_elem.text
+                                    if char_count < label_len:
+                                        overlap = min(len(text_in_run), label_len - char_count)
+                                        if overlap > 0:
+                                            rPr = run_elem.find(qn('w:rPr'))
+                                            if rPr is None:
+                                                rPr = parse_xml(r'<w:rPr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"/>')
+                                                run_elem.insert(0, rPr)
+                                            existing_color = rPr.find(qn('w:color'))
+                                            if existing_color is not None:
+                                                rPr.remove(existing_color)
+                                            color_elem = parse_xml(
+                                                f'<w:color w:val="{color_hex}" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"/>'
+                                            )
+                                            rPr.append(color_elem)
+                                    char_count += len(text_in_run)
                 except Exception as e:
                     run = para.add_run(f'[{segment["label"]}]')
                     run.font.size = Pt(10)
