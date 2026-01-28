@@ -202,7 +202,7 @@ def create_vertical_docx(title, paragraphs, output_path):
     return output_path
 
 
-def convert_md_to_docx(md_path, output_dir=None):
+def convert_md_to_docx(md_path, output_dir=None, source_dir=None):
     """Convert a single markdown file to DOCX."""
     with open(md_path, 'r', encoding='utf-8') as f:
         md_content = f.read()
@@ -215,9 +215,22 @@ def convert_md_to_docx(md_path, output_dir=None):
     
     if output_dir is None:
         output_dir = os.path.dirname(md_path)
+        rel_subdir = ''
+    else:
+        if source_dir:
+            rel_path = os.path.relpath(os.path.dirname(md_path), source_dir)
+            if rel_path != '.':
+                rel_subdir = rel_path
+            else:
+                rel_subdir = ''
+        else:
+            rel_subdir = ''
+    
+    final_output_dir = os.path.join(output_dir, rel_subdir) if rel_subdir else output_dir
+    os.makedirs(final_output_dir, exist_ok=True)
     
     base_name = os.path.splitext(os.path.basename(md_path))[0]
-    output_path = os.path.join(output_dir, f"{base_name}.docx")
+    output_path = os.path.join(final_output_dir, f"{base_name}.docx")
     
     create_vertical_docx(title, paragraphs, output_path)
     return output_path
@@ -233,7 +246,7 @@ def convert_all_md_files(source_dir='pages', output_dir='output_docx'):
     for md_path in md_files:
         print(f"Converting: {md_path}")
         try:
-            result = convert_md_to_docx(md_path, output_dir)
+            result = convert_md_to_docx(md_path, output_dir, source_dir)
             if result:
                 converted.append(result)
                 print(f"  -> {result}")
