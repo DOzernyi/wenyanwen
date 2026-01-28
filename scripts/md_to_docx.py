@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Convert Markdown files with annotations to DOCX format with vertical Chinese text.
-Annotations become footnotes on the left side.
+Annotations become proper Word footnotes with colors preserved.
 """
 
 import os
@@ -9,10 +9,21 @@ import re
 import sys
 import glob
 from docx import Document
-from docx.shared import Inches, Pt, Cm
+from docx.shared import Pt, Cm, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import parse_xml
-from docx.oxml.ns import nsdecls, qn
+from docx.oxml.ns import qn
+
+
+def hex_to_rgb(hex_color):
+    """Convert hex color to RGBColor."""
+    hex_color = hex_color.lstrip('#')
+    if len(hex_color) == 3:
+        hex_color = ''.join([c*2 for c in hex_color])
+    r = int(hex_color[0:2], 16)
+    g = int(hex_color[2:4], 16)
+    b = int(hex_color[4:6], 16)
+    return RGBColor(r, g, b)
 
 
 def parse_markdown_with_annotations(md_content):
@@ -46,7 +57,6 @@ def parse_markdown_with_annotations(md_content):
             continue
             
         segments = []
-        annotations = []
         
         fn_pattern = r'\{%\s*include\s+fn\.html\s+(.*?)\s*%\}'
         
@@ -56,7 +66,7 @@ def parse_markdown_with_annotations(md_content):
                 text_before = para_html[last_end:match.start()]
                 text_before = re.sub(r'<[^>]+>', '', text_before).strip()
                 if text_before:
-                    segments.append(('text', text_before))
+                    segments.append({'type': 'text', 'content': text_before})
             
             attrs_str = match.group(1)
             label = re.search(r'label="([^"]*)"', attrs_str)
@@ -64,6 +74,7 @@ def parse_markdown_with_annotations(md_content):
             text = re.search(r'text="([^"]*)"', attrs_str)
             
             label_val = label.group(1) if label else '注'
+            color_val = color.group(1) if color else '#267CB9'
             text_val = text.group(1) if text else ''
             
             if label_val not in label_counters:
@@ -72,11 +83,12 @@ def parse_markdown_with_annotations(md_content):
             numbered_label = f"{label_val}{label_counters[label_val]}"
             
             if text_val:
-                annotations.append({
+                segments.append({
+                    'type': 'footnote',
                     'label': numbered_label,
+                    'color': color_val,
                     'text': text_val
                 })
-                segments.append(('annotation', numbered_label))
             
             last_end = match.end()
         
@@ -84,18 +96,15 @@ def parse_markdown_with_annotations(md_content):
             remaining = para_html[last_end:]
             remaining = re.sub(r'<[^>]+>', '', remaining).strip()
             if remaining:
-                segments.append(('text', remaining))
+                segments.append({'type': 'text', 'content': remaining})
         
-        if not segments and not annotations:
+        if not segments:
             plain_text = re.sub(r'<[^>]+>', '', para_html).strip()
             if plain_text:
-                segments.append(('text', plain_text))
+                segments.append({'type': 'text', 'content': plain_text})
         
-        if segments or annotations:
-            paragraphs.append({
-                'segments': segments,
-                'annotations': annotations
-            })
+        if segments:
+            paragraphs.append(segments)
     
     return title, paragraphs
 
@@ -111,7 +120,7 @@ def set_vertical_text_direction(section):
 
 
 def create_vertical_docx(title, paragraphs, output_path):
-    """Create a DOCX file with vertical Chinese text and footnotes."""
+    """Create a DOCX file with vertical Chinese text and proper Word footnotes."""
     doc = Document()
     
     section = doc.sections[0]
@@ -132,46 +141,38 @@ def create_vertical_docx(title, paragraphs, output_path):
         title_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
         doc.add_paragraph()
     
-    footnote_counter = 0
-    all_footnotes = []
-    
-    for para_data in paragraphs:
+    for para_segments in paragraphs:
         para = doc.add_paragraph()
         
-        for seg_type, seg_content in para_data['segments']:
-            if seg_type == 'text':
-                run = para.add_run(seg_content)
+        for segment in para_segments:
+            if segment['type'] == 'text':
+                run = para.add_run(segment['content'])
                 run.font.size = Pt(14)
-            elif seg_type == 'annotation':
-                footnote_counter += 1
-                run = para.add_run(f'[{seg_content}]')
-                run.font.size = Pt(10)
-                run.font.superscript = True
-        
-        for ann in para_data['annotations']:
-            all_footnotes.append(ann)
-    
-    if all_footnotes:
-        doc.add_paragraph()
-        doc.add_paragraph()
-        
-        divider = doc.add_paragraph()
-        divider_run = divider.add_run('─' * 30)
-        divider_run.font.size = Pt(10)
-        
-        notes_title = doc.add_paragraph()
-        notes_run = notes_title.add_run('【注釋】')
-        notes_run.font.size = Pt(14)
-        notes_run.font.bold = True
-        
-        for fn in all_footnotes:
-            fn_para = doc.add_paragraph()
-            label_run = fn_para.add_run(f"{fn['label']}: ")
-            label_run.font.size = Pt(11)
-            label_run.font.bold = True
-            
-            text_run = fn_para.add_run(fn['text'])
-            text_run.font.size = Pt(11)
+            elif segment['type'] == 'footnote':
+                color = hex_to_rgb(segment['color'])
+                footnote_text = f"【{segment['label']}】{segment['text']}"
+                
+                try:
+                    para.add_footnote(footnote_text)
+                    
+                    footnote_ref = para._element.xpath('.//w:footnoteReference')
+                    if footnote_ref:
+                        last_ref = footnote_ref[-1]
+                        parent_run = last_ref.getparent()
+                        if parent_run is not None:
+                            rPr = parent_run.find(qn('w:rPr'))
+                            if rPr is None:
+                                rPr = parse_xml(r'<w:rPr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"/>')
+                                parent_run.insert(0, rPr)
+                            color_elem = parse_xml(
+                                f'<w:color w:val="{segment["color"].lstrip("#")}" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"/>'
+                            )
+                            rPr.append(color_elem)
+                except Exception as e:
+                    run = para.add_run(f'[{segment["label"]}]')
+                    run.font.size = Pt(10)
+                    run.font.superscript = True
+                    run.font.color.rgb = color
     
     doc.save(output_path)
     return output_path
