@@ -78,6 +78,23 @@ Shows word-by-word connections between two sentences with colored lines:
 
 The `data-pairs` array defines connections: `[top_index, bottom_index]`.
 
+## MD to DOCX Conversion
+
+Convert markdown files with annotations to DOCX format with vertical Chinese text:
+
+```bash
+# Convert a single file
+python scripts/md_to_docx.py pages/紅樓夢/紅樓夢1.md
+
+# Convert all markdown files
+python scripts/md_to_docx.py --all pages output_docx
+```
+
+The generated DOCX files feature:
+- Vertical text direction (top-to-bottom, right-to-left columns)
+- Landscape A4 page orientation
+- Annotations collected as footnotes at the end
+
 ## Development
 
 Run locally with:

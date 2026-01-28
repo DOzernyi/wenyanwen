@@ -1,0 +1,240 @@
+#!/usr/bin/env python3
+"""
+Convert Markdown files with annotations to DOCX format with vertical Chinese text.
+Annotations become footnotes on the left side.
+"""
+
+import os
+import re
+import sys
+import glob
+from docx import Document
+from docx.shared import Inches, Pt, Cm
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.oxml import parse_xml
+from docx.oxml.ns import nsdecls, qn
+
+
+def parse_markdown_with_annotations(md_content):
+    """
+    Parse markdown content and extract text with annotations.
+    Returns: (title, paragraphs) where each paragraph has text and annotations.
+    """
+    title = ""
+    title_match = re.search(r'^#\s+(.+)$', md_content, re.MULTILINE)
+    if title_match:
+        title = title_match.group(1).strip()
+        title = re.sub(r'[《》]', '', title)
+    
+    content_match = re.search(r'\{%\s*capture\s+main_text\s*%\}(.*?)\{%\s*endcapture\s*%\}', 
+                               md_content, re.DOTALL)
+    
+    if not content_match:
+        paragraphs_raw = re.findall(r'<p>(.*?)</p>', md_content, re.DOTALL)
+        if not paragraphs_raw:
+            return title, []
+    else:
+        content = content_match.group(1)
+        paragraphs_raw = re.findall(r'<p>(.*?)</p>', content, re.DOTALL)
+    
+    paragraphs = []
+    label_counters = {}
+    
+    for para_html in paragraphs_raw:
+        para_html = para_html.strip()
+        if not para_html:
+            continue
+            
+        segments = []
+        annotations = []
+        
+        fn_pattern = r'\{%\s*include\s+fn\.html\s+(.*?)\s*%\}'
+        
+        last_end = 0
+        for match in re.finditer(fn_pattern, para_html):
+            if match.start() > last_end:
+                text_before = para_html[last_end:match.start()]
+                text_before = re.sub(r'<[^>]+>', '', text_before).strip()
+                if text_before:
+                    segments.append(('text', text_before))
+            
+            attrs_str = match.group(1)
+            label = re.search(r'label="([^"]*)"', attrs_str)
+            color = re.search(r'color="([^"]*)"', attrs_str)
+            text = re.search(r'text="([^"]*)"', attrs_str)
+            
+            label_val = label.group(1) if label else '注'
+            text_val = text.group(1) if text else ''
+            
+            if label_val not in label_counters:
+                label_counters[label_val] = 0
+            label_counters[label_val] += 1
+            numbered_label = f"{label_val}{label_counters[label_val]}"
+            
+            if text_val:
+                annotations.append({
+                    'label': numbered_label,
+                    'text': text_val
+                })
+                segments.append(('annotation', numbered_label))
+            
+            last_end = match.end()
+        
+        if last_end < len(para_html):
+            remaining = para_html[last_end:]
+            remaining = re.sub(r'<[^>]+>', '', remaining).strip()
+            if remaining:
+                segments.append(('text', remaining))
+        
+        if not segments and not annotations:
+            plain_text = re.sub(r'<[^>]+>', '', para_html).strip()
+            if plain_text:
+                segments.append(('text', plain_text))
+        
+        if segments or annotations:
+            paragraphs.append({
+                'segments': segments,
+                'annotations': annotations
+            })
+    
+    return title, paragraphs
+
+
+def set_vertical_text_direction(section):
+    """Set section to use vertical text direction (top-to-bottom, right-to-left)."""
+    sectPr = section._sectPr
+    
+    text_direction = parse_xml(
+        r'<w:textDirection w:val="tbRl" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"/>'
+    )
+    sectPr.append(text_direction)
+
+
+def create_vertical_docx(title, paragraphs, output_path):
+    """Create a DOCX file with vertical Chinese text and footnotes."""
+    doc = Document()
+    
+    section = doc.sections[0]
+    section.page_width = Cm(29.7)
+    section.page_height = Cm(21.0)
+    section.left_margin = Cm(2.5)
+    section.right_margin = Cm(2.5)
+    section.top_margin = Cm(2.5)
+    section.bottom_margin = Cm(2.5)
+    
+    set_vertical_text_direction(section)
+    
+    if title:
+        title_para = doc.add_paragraph()
+        title_run = title_para.add_run(title)
+        title_run.font.size = Pt(22)
+        title_run.font.bold = True
+        title_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        doc.add_paragraph()
+    
+    footnote_counter = 0
+    all_footnotes = []
+    
+    for para_data in paragraphs:
+        para = doc.add_paragraph()
+        
+        for seg_type, seg_content in para_data['segments']:
+            if seg_type == 'text':
+                run = para.add_run(seg_content)
+                run.font.size = Pt(14)
+            elif seg_type == 'annotation':
+                footnote_counter += 1
+                run = para.add_run(f'[{seg_content}]')
+                run.font.size = Pt(10)
+                run.font.superscript = True
+        
+        for ann in para_data['annotations']:
+            all_footnotes.append(ann)
+    
+    if all_footnotes:
+        doc.add_paragraph()
+        doc.add_paragraph()
+        
+        divider = doc.add_paragraph()
+        divider_run = divider.add_run('─' * 30)
+        divider_run.font.size = Pt(10)
+        
+        notes_title = doc.add_paragraph()
+        notes_run = notes_title.add_run('【注釋】')
+        notes_run.font.size = Pt(14)
+        notes_run.font.bold = True
+        
+        for fn in all_footnotes:
+            fn_para = doc.add_paragraph()
+            label_run = fn_para.add_run(f"{fn['label']}: ")
+            label_run.font.size = Pt(11)
+            label_run.font.bold = True
+            
+            text_run = fn_para.add_run(fn['text'])
+            text_run.font.size = Pt(11)
+    
+    doc.save(output_path)
+    return output_path
+
+
+def convert_md_to_docx(md_path, output_dir=None):
+    """Convert a single markdown file to DOCX."""
+    with open(md_path, 'r', encoding='utf-8') as f:
+        md_content = f.read()
+    
+    title, paragraphs = parse_markdown_with_annotations(md_content)
+    
+    if not paragraphs:
+        print(f"  Skipping {md_path}: No content found")
+        return None
+    
+    if output_dir is None:
+        output_dir = os.path.dirname(md_path)
+    
+    base_name = os.path.splitext(os.path.basename(md_path))[0]
+    output_path = os.path.join(output_dir, f"{base_name}.docx")
+    
+    create_vertical_docx(title, paragraphs, output_path)
+    return output_path
+
+
+def convert_all_md_files(source_dir='pages', output_dir='output_docx'):
+    """Convert all markdown files in the source directory."""
+    os.makedirs(output_dir, exist_ok=True)
+    
+    md_files = glob.glob(os.path.join(source_dir, '**', '*.md'), recursive=True)
+    
+    converted = []
+    for md_path in md_files:
+        print(f"Converting: {md_path}")
+        try:
+            result = convert_md_to_docx(md_path, output_dir)
+            if result:
+                converted.append(result)
+                print(f"  -> {result}")
+        except Exception as e:
+            print(f"  Error: {e}")
+    
+    print(f"\nConverted {len(converted)} files to {output_dir}/")
+    return converted
+
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        if sys.argv[1] == '--all':
+            source = sys.argv[2] if len(sys.argv) > 2 else 'pages'
+            output = sys.argv[3] if len(sys.argv) > 3 else 'output_docx'
+            convert_all_md_files(source, output)
+        else:
+            for md_file in sys.argv[1:]:
+                result = convert_md_to_docx(md_file)
+                if result:
+                    print(f"Created: {result}")
+    else:
+        print("Usage:")
+        print("  python scripts/md_to_docx.py file.md          # Convert single file")
+        print("  python scripts/md_to_docx.py --all [source] [output]  # Convert all files")
+        print("")
+        print("Examples:")
+        print("  python scripts/md_to_docx.py pages/紅樓夢/紅樓夢1.md")
+        print("  python scripts/md_to_docx.py --all pages output_docx")
