@@ -220,6 +220,58 @@ title: 通讀古文
   padding: 16px 20px 20px;
 }
 
+.fanli-link {
+  display: inline-block;
+  font-size: 0.8em;
+  color: var(--vermilion);
+  text-decoration: none;
+  border: 1px solid var(--vermilion);
+  padding: 1px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+}
+
+.fanli-link:hover {
+  background: var(--vermilion);
+  color: white;
+}
+
+.chapter-toggle {
+  margin: 0;
+}
+
+.chapter-toggle summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.85em;
+  color: var(--ink-light);
+  padding: 6px 0 10px;
+  user-select: none;
+}
+
+.chapter-toggle summary::-webkit-details-marker {
+  display: none;
+}
+
+.chapter-toggle summary::before {
+  content: "▶";
+  font-size: 0.65em;
+  transition: transform 0.2s ease;
+}
+
+.chapter-toggle[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.chapter-toggle summary:hover {
+  color: var(--ink-dark);
+}
+
 .chapter-list {
   list-style: none;
   padding: 0;
@@ -387,22 +439,19 @@ title: 通讀古文
         <h3 class="book-title">《紅樓夢》(注)(批選)</h3>
         <div class="book-meta">
           <span class="book-author">曹雪芹 著 (庚辰本為底本)</span>
+          <a href="/pages/校注凡例.html" class="fanli-link">校注凡例</a>
         </div>
       </div>
       <div class="book-body">
-        <ul class="chapter-list">
-          <li class="chapter-item">
-            <a href="/pages/紅樓夢/紅樓夢1.html" class="chapter-link">第一回　甄士隱夢幻識通靈　賈雨村風塵懷閨秀</a>
-          </li>
-          <li class="chapter-item">
-            <a href="/pages/紅樓夢/紅樓夢2.html" class="chapter-link">第二回 賈夫人仙逝揚州城 冷子興演說榮國府</a>
-          </li>
-          <li class="chapter-item">
-            <a href="/pages/紅樓夢/紅樓夢5.html" class="chapter-link">第五回 遊幻境指迷十二釵 飲仙醪曲演紅樓夢</a>
-          </li>
-
-        </ul>
-        <p class="coming-soon">更多章節即將推出</p>
+        <details class="chapter-toggle" open>
+          <summary>3 回</summary>
+          <ul class="chapter-list">
+            <li class="chapter-item"><a href="/pages/紅樓夢/紅樓夢1.html" class="chapter-link">第一回　甄士隱夢幻識通靈　賈雨村風塵懷閨秀</a></li>
+            <li class="chapter-item"><a href="/pages/紅樓夢/紅樓夢2.html" class="chapter-link">第二回　賈夫人仙逝揚州城　冷子興演說榮國府</a></li>
+            <li class="chapter-item"><a href="/pages/紅樓夢/紅樓夢5.html" class="chapter-link">第五回　遊幻境指迷十二釵　飲仙醪曲演紅樓夢</a></li>
+          </ul>
+          <p class="coming-soon">更多章節即將推出</p>
+        </details>
       </div>
     </div>
 
@@ -411,32 +460,36 @@ title: 通讀古文
         <h3 class="book-title">《儒林外史》</h3>
         <div class="book-meta">
           <span class="book-author">吳敬梓 著</span>
+          <a href="/pages/校注凡例.html" class="fanli-link">校注凡例</a>
         </div>
       </div>
       <div class="book-body">
-        <ul class="chapter-list">
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史1.html" class="chapter-link">第一回　說楔子敷陳大義　借名流隱括全文</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史2.html" class="chapter-link">第二回　王孝廉村學識同科　周蒙師暮年登上第</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史3.html" class="chapter-link">第三回　周學道校士拔真才　胡屠戶行兇鬧捷報</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史4.html" class="chapter-link">第四回　薦亡齋和尚喫官司　打秋風鄉紳遭橫事</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史5.html" class="chapter-link">第五回　王秀才議立偏房　嚴監生疾終正寢</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史6.html" class="chapter-link">第六回　鄉紳發病鬧船家　寡婦含冤控大伯</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史7.html" class="chapter-link">第七回　范學道視學報師恩　王員外立朝敦友誼</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史8.html" class="chapter-link">第八回　王觀察窮途逢世好　婁公子故里遇貧交</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史9.html" class="chapter-link">第九回　婁公子捐金贖朋友　劉守備冒姓打船家</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史10.html" class="chapter-link">第十回　魯翰林憐才擇婿　蘧公孫富室招親</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史11.html" class="chapter-link">第十一回　魯小姐制義難新郎　楊司訓相府薦賢士</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史12.html" class="chapter-link">第十二回　名士大宴鶯脰湖　俠客虛設人頭會</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史13.html" class="chapter-link">第十三回　蘧駪夫求賢問業　馬純上仗義疎財</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史14.html" class="chapter-link">第十四回　蘧公孫書坊送良友　馬秀才山洞遇神仙</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史15.html" class="chapter-link">第十五回　葬神仙馬秀才送喪　思父母匡童生盡孝</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史16.html" class="chapter-link">第十六回　大柳莊孝子事親　樂清縣賢宰愛士</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史17.html" class="chapter-link">第十七回　匡秀才重遊舊地　趙醫生高踞詩壇</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史18.html" class="chapter-link">第十八回　約詩會名士攜匡二　訪朋友書店會潘三</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史19.html" class="chapter-link">第十九回　匡超人幸得良朋　潘自業橫遭禍事</a></li>
-          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史20.html" class="chapter-link">第二十回　匡超人高興長安道　牛布衣客死蕪湖關</a></li>
-        </ul>
-        <p class="coming-soon">更多章節即將推出（第二十一至三十七回）</p>
+        <details class="chapter-toggle">
+          <summary>20 回</summary>
+          <ul class="chapter-list">
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史1.html" class="chapter-link">第一回　說楔子敷陳大義　借名流隱括全文</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史2.html" class="chapter-link">第二回　王孝廉村學識同科　周蒙師暮年登上第</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史3.html" class="chapter-link">第三回　周學道校士拔真才　胡屠戶行兇鬧捷報</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史4.html" class="chapter-link">第四回　薦亡齋和尚喫官司　打秋風鄉紳遭橫事</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史5.html" class="chapter-link">第五回　王秀才議立偏房　嚴監生疾終正寢</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史6.html" class="chapter-link">第六回　鄉紳發病鬧船家　寡婦含冤控大伯</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史7.html" class="chapter-link">第七回　范學道視學報師恩　王員外立朝敦友誼</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史8.html" class="chapter-link">第八回　王觀察窮途逢世好　婁公子故里遇貧交</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史9.html" class="chapter-link">第九回　婁公子捐金贖朋友　劉守備冒姓打船家</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史10.html" class="chapter-link">第十回　魯翰林憐才擇婿　蘧公孫富室招親</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史11.html" class="chapter-link">第十一回　魯小姐制義難新郎　楊司訓相府薦賢士</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史12.html" class="chapter-link">第十二回　名士大宴鶯脰湖　俠客虛設人頭會</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史13.html" class="chapter-link">第十三回　蘧駪夫求賢問業　馬純上仗義疎財</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史14.html" class="chapter-link">第十四回　蘧公孫書坊送良友　馬秀才山洞遇神仙</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史15.html" class="chapter-link">第十五回　葬神仙馬秀才送喪　思父母匡童生盡孝</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史16.html" class="chapter-link">第十六回　大柳莊孝子事親　樂清縣賢宰愛士</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史17.html" class="chapter-link">第十七回　匡秀才重遊舊地　趙醫生高踞詩壇</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史18.html" class="chapter-link">第十八回　約詩會名士攜匡二　訪朋友書店會潘三</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史19.html" class="chapter-link">第十九回　匡超人幸得良朋　潘自業橫遭禍事</a></li>
+            <li class="chapter-item"><a href="/pages/儒林外史/儒林外史20.html" class="chapter-link">第二十回　匡超人高興長安道　牛布衣客死蕪湖關</a></li>
+          </ul>
+          <p class="coming-soon">更多章節即將推出（第二十一至三十七回）</p>
+        </details>
       </div>
     </div>
 
@@ -445,15 +498,17 @@ title: 通讀古文
         <h3 class="book-title">《水滸傳》</h3>
         <div class="book-meta">
           <span class="book-author">施耐庵 著</span>
+          <a href="/pages/校注凡例.html" class="fanli-link">校注凡例</a>
         </div>
       </div>
       <div class="book-body">
-        <ul class="chapter-list">
-          <li class="chapter-item">
-            <a href="/pages/水滸傳/水滸傳1.html" class="chapter-link">第一回　張天師祈禳瘟疫　洪太尉誤走妖魔</a>
-          </li>
-        </ul>
-        <p class="coming-soon">更多章節即將推出</p>
+        <details class="chapter-toggle" open>
+          <summary>1 回</summary>
+          <ul class="chapter-list">
+            <li class="chapter-item"><a href="/pages/水滸傳/水滸傳1.html" class="chapter-link">第一回　張天師祈禳瘟疫　洪太尉誤走妖魔</a></li>
+          </ul>
+          <p class="coming-soon">更多章節即將推出</p>
+        </details>
       </div>
     </div>
 
@@ -462,15 +517,17 @@ title: 通讀古文
         <h3 class="book-title">《鏡花緣》</h3>
         <div class="book-meta">
           <span class="book-author">李汝珍 著</span>
+          <a href="/pages/校注凡例.html" class="fanli-link">校注凡例</a>
         </div>
       </div>
       <div class="book-body">
-        <ul class="chapter-list">
-          <li class="chapter-item">
-            <a href="/pages/鏡花緣/鏡花緣1.html" class="chapter-link">第一回　女魁星北斗垂景象　老王母西池賜芳筵</a>
-          </li>
-        </ul>
-        <p class="coming-soon">更多章節即將推出</p>
+        <details class="chapter-toggle" open>
+          <summary>1 回</summary>
+          <ul class="chapter-list">
+            <li class="chapter-item"><a href="/pages/鏡花緣/鏡花緣1.html" class="chapter-link">第一回　女魁星北斗垂景象　老王母西池賜芳筵</a></li>
+          </ul>
+          <p class="coming-soon">更多章節即將推出</p>
+        </details>
       </div>
     </div>
 
