@@ -465,6 +465,7 @@ title: 通讀古文
 <div class="resources-section">
   <h2 class="resources-title">其他資源</h2>
   <div class="resources-grid">
+    <a href="/pages/guide.html" class="resource-link">編寫指南</a>
     <a href="/pages/demo.html" class="resource-link">功能示範</a>
     <a href="https://docs.google.com/document/d/17izkGXYQcVRLE7M4e6zg7eM_1IEPqxfL/edit" class="resource-link">屈原列傳</a>
     <a href="https://docs.google.com/document/d/1u4yg8lehsZjKUoFGHDfxvp7VUWlGDR7X/edit" class="resource-link">離騷</a>

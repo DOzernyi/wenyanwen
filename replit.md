@@ -25,6 +25,7 @@ This site uses the Jekyll static site generator with the minimal theme. It inclu
 │   └── js/
 │       └── connection-diagram.js # Connection diagram logic
 ├── pages/               # Site pages
+│   ├── guide.md         # Comprehensive feature guide (編寫指南)
 │   └── demo.md          # Feature demo page
 └── index.md             # Homepage
 ```
