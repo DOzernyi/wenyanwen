@@ -19,6 +19,21 @@
   var labelColors = {};
   var hiddenLabels = {};
 
+  function findContentBlock(el) {
+    var node = el.parentElement;
+    while (node && node !== container) {
+      var tag = node.tagName.toLowerCase();
+      if (tag === 'p' || tag === 'center' || tag === 'blockquote' ||
+          tag === 'div' || tag === 'li' || tag === 'pre' ||
+          tag === 'h1' || tag === 'h2' || tag === 'h3' ||
+          tag === 'h4' || tag === 'h5' || tag === 'h6') {
+        return node;
+      }
+      node = node.parentElement;
+    }
+    return null;
+  }
+
   refs.forEach(function(ref) {
     var label = ref.getAttribute('data-note-label') || '注';
     var text = ref.getAttribute('data-note-text');
@@ -42,8 +57,8 @@
       note.innerHTML = '<span class="note-marker" style="background-color: ' + color + ';">' + numberedId + '</span> ' + text;
       notesContainer.appendChild(note);
 
-      var parentP = ref.closest('p');
-      sidenotes.push({ ref: ref, note: note, parentP: parentP, label: label });
+      var parentBlock = findContentBlock(ref);
+      sidenotes.push({ ref: ref, note: note, parentBlock: parentBlock, label: label });
     }
   });
 
@@ -88,9 +103,22 @@
 
   function doPositionPass() {
     var isMobile = window.innerWidth <= 768;
-    var paragraphs = Array.prototype.slice.call(container.querySelectorAll('p'));
 
-    paragraphs.forEach(function(p) { p.style.paddingBottom = ''; });
+    var blocks = [];
+    var seen = new Set();
+    container.querySelectorAll('p, center, blockquote, div, li, pre, h1, h2, h3, h4, h5, h6').forEach(function(el) {
+      if (el === container) return;
+      var dominated = false;
+      seen.forEach(function(s) {
+        if (s.contains(el)) dominated = true;
+      });
+      if (!dominated) {
+        seen.add(el);
+        blocks.push(el);
+      }
+    });
+
+    blocks.forEach(function(b) { b.style.paddingBottom = ''; });
 
     if (isMobile) {
       sidenotes.forEach(function(item) {
@@ -116,27 +144,27 @@
 
     if (visibleNotes.length === 0) return;
 
-    var notesByParagraph = {};
+    var notesByBlock = new Map();
     visibleNotes.forEach(function(item) {
-      var pIdx = item.parentP ? paragraphs.indexOf(item.parentP) : -1;
-      var key = pIdx >= 0 ? pIdx : -1;
-      if (!notesByParagraph[key]) notesByParagraph[key] = [];
-      notesByParagraph[key].push(item);
+      var block = item.parentBlock;
+      if (!block) return;
+      if (!notesByBlock.has(block)) notesByBlock.set(block, []);
+      notesByBlock.get(block).push(item);
     });
 
     var noteGap = 8;
     var noteCursor = 0;
 
-    for (var pi = 0; pi < paragraphs.length; pi++) {
-      var pNotes = notesByParagraph[pi];
-      if (!pNotes || pNotes.length === 0) continue;
+    blocks.forEach(function(block) {
+      var bNotes = notesByBlock.get(block);
+      if (!bNotes || bNotes.length === 0) return;
 
       var notesTop = notesContainer.getBoundingClientRect().top;
-      var pRect = paragraphs[pi].getBoundingClientRect();
-      var pBottom = pRect.bottom - notesTop;
+      var bRect = block.getBoundingClientRect();
+      var bBottom = bRect.bottom - notesTop;
 
-      for (var ni = 0; ni < pNotes.length; ni++) {
-        var item = pNotes[ni];
+      for (var ni = 0; ni < bNotes.length; ni++) {
+        var item = bNotes[ni];
         var refRect = item.ref.getBoundingClientRect();
         var desiredTop = refRect.top - notesTop;
         var noteHeight = item.note.offsetHeight;
@@ -146,26 +174,11 @@
         noteCursor = placedTop + noteHeight + noteGap;
       }
 
-      if (noteCursor > pBottom) {
-        var extra = Math.ceil(noteCursor - pBottom);
-        paragraphs[pi].style.paddingBottom = extra + 'px';
+      if (noteCursor > bBottom) {
+        var extra = Math.ceil(noteCursor - bBottom);
+        block.style.paddingBottom = extra + 'px';
       }
-    }
-
-    var orphans = notesByParagraph[-1];
-    if (orphans) {
-      var notesTop = notesContainer.getBoundingClientRect().top;
-      for (var oi = 0; oi < orphans.length; oi++) {
-        var item = orphans[oi];
-        var refRect = item.ref.getBoundingClientRect();
-        var desiredTop = refRect.top - notesTop;
-        var noteHeight = item.note.offsetHeight;
-        var placedTop = Math.max(desiredTop, noteCursor);
-
-        item.note.style.top = placedTop + 'px';
-        noteCursor = placedTop + noteHeight + noteGap;
-      }
-    }
+    });
   }
 
   function runPositioning() {
