@@ -33,6 +33,13 @@ HEADING3_SIZE = 12
 NORMAL_SIZE = 13
 FOOTNOTE_SIZE = 11
 
+FULLWIDTH_DIGITS = str.maketrans('0123456789', '０１２３４５６７８９')
+
+
+def to_fullwidth_digits(text):
+    return text.translate(FULLWIDTH_DIGITS)
+
+
 BLOCK_COLORS = {
     '': {'title_bg': '2a7ab5', 'body_bg': 'd9edf7', 'title_fg': 'FFFFFF'},
     'alert': {'title_bg': 'c0392b', 'body_bg': 'f2dede', 'title_fg': 'FFFFFF'},
@@ -555,7 +562,7 @@ def render_elements(doc, elements, footnote_counters, size=NORMAL_SIZE):
 
         if etype == 'source_header':
             para = doc.add_paragraph()
-            run = para.add_run(el['text'])
+            run = para.add_run(to_fullwidth_digits(el['text']))
             set_run_font(run, size=10, color=RGBColor(0xb0, 0xb0, 0xb0))
             para.paragraph_format.space_after = Pt(12)
 
@@ -576,15 +583,14 @@ def render_elements(doc, elements, footnote_counters, size=NORMAL_SIZE):
             render_runs(para, el.get('runs', []), footnote_counters, size=size)
 
         elif etype == 'list_item':
-            para = doc.add_paragraph()
-            level = el.get('level', 0)
-            para.paragraph_format.left_indent = Inches(0.25 + 0.25 * level)
-            para.paragraph_format.first_line_indent = Inches(-0.2)
             ordered = el.get('ordered', False)
-            num = el.get('number', 1)
-            prefix = f'{num}. ' if ordered else '\u2022 '
-            prefix_run = para.add_run(prefix)
-            set_run_font(prefix_run, size=size)
+            level = el.get('level', 0)
+            if ordered:
+                style_name = ['List Number', 'List Number 2', 'List Number 3'][min(level, 2)]
+            else:
+                style_name = ['List Bullet', 'List Bullet 2', 'List Bullet 3'][min(level, 2)]
+            para = doc.add_paragraph(style=style_name)
+            set_paragraph_font(para, size=size)
             render_runs(para, el.get('runs', []), footnote_counters, size=size)
 
         elif etype == 'block':
@@ -629,6 +635,7 @@ def render_runs(para, runs, footnote_counters, size=NORMAL_SIZE, bold=False):
             text = r['text']
             if not text:
                 continue
+            text = to_fullwidth_digits(text)
             run = para.add_run(text)
             set_run_font(run, size=size, bold=bold or r.get('bold', False))
             if r.get('italic'):
@@ -649,7 +656,7 @@ def render_runs(para, runs, footnote_counters, size=NORMAL_SIZE, bold=False):
                 footnote_counters[label] = 0
             footnote_counters[label] += 1
             num = footnote_counters[label]
-            marker_text = f'{label}{num}'
+            marker_text = to_fullwidth_digits(f'{label}{num}')
             run = para.add_run(marker_text)
             set_run_font(run, size=max(size - 2, 9), bold=True,
                          color=hex_to_rgb(color_hex))
@@ -683,7 +690,7 @@ def render_block(doc, block_el, footnote_counters):
     title_cell = table.rows[0].cells[0]
     add_cell_shading(title_cell, colors['title_bg'])
     title_para = title_cell.paragraphs[0]
-    title_run = title_para.add_run(title)
+    title_run = title_para.add_run(to_fullwidth_digits(title))
     set_run_font(title_run, size=NORMAL_SIZE, bold=True,
                  color=hex_to_rgb(colors['title_fg']))
 
@@ -694,41 +701,40 @@ def render_block(doc, block_el, footnote_counters):
     if body_elements:
         first = True
         for el in body_elements:
+            etype = el.get('type', '')
             if first:
                 first_para = body_cell.paragraphs[0]
-                if el.get('type') == 'paragraph':
-                    render_runs(first_para, el.get('runs', []), footnote_counters,
-                                size=NORMAL_SIZE)
-                elif el.get('type') == 'list_item':
+                if etype == 'list_item':
                     ordered = el.get('ordered', False)
-                    num = el.get('number', 1)
-                    prefix = f'{num}. ' if ordered else '\u2022 '
+                    prefix = to_fullwidth_digits(f'{el.get("number", 1)}．') if ordered else '・'
                     pr = first_para.add_run(prefix)
                     set_run_font(pr, size=NORMAL_SIZE)
                     render_runs(first_para, el.get('runs', []), footnote_counters,
                                 size=NORMAL_SIZE)
+                elif 'runs' in el:
+                    render_runs(first_para, el['runs'], footnote_counters,
+                                size=NORMAL_SIZE, bold=(etype == 'heading'))
                 else:
-                    render_runs(first_para, el.get('runs', []) if 'runs' in el else
+                    render_runs(first_para,
                                 [{'type': 'text', 'text': el.get('text', '')}],
                                 footnote_counters, size=NORMAL_SIZE)
                 first = False
                 continue
 
-            if el.get('type') == 'paragraph':
+            if etype == 'paragraph':
                 p = body_cell.add_paragraph()
                 render_runs(p, el.get('runs', []), footnote_counters, size=NORMAL_SIZE)
-            elif el.get('type') == 'list_item':
+            elif etype == 'list_item':
                 p = body_cell.add_paragraph()
                 level = el.get('level', 0)
                 p.paragraph_format.left_indent = Inches(0.25 + 0.25 * level)
                 p.paragraph_format.first_line_indent = Inches(-0.2)
                 ordered = el.get('ordered', False)
-                num = el.get('number', 1)
-                prefix = f'{num}. ' if ordered else '\u2022 '
+                prefix = to_fullwidth_digits(f'{el.get("number", 1)}．') if ordered else '・'
                 pr = p.add_run(prefix)
                 set_run_font(pr, size=NORMAL_SIZE)
                 render_runs(p, el.get('runs', []), footnote_counters, size=NORMAL_SIZE)
-            elif el.get('type') == 'heading':
+            elif etype == 'heading':
                 p = body_cell.add_paragraph()
                 render_runs(p, el.get('runs', []), footnote_counters,
                             size=HEADING3_SIZE, bold=True)
@@ -783,13 +789,14 @@ def render_footnote_section(doc, footnotes, footnote_counters):
             para.paragraph_format.space_before = Pt(1)
             para.paragraph_format.space_after = Pt(1)
 
-            marker = para.add_run(f'{label}{i}')
+            marker = para.add_run(to_fullwidth_digits(f'{label}{i}'))
             set_run_font(marker, size=FOOTNOTE_SIZE, bold=True, color=fn_color)
 
             sep = para.add_run('　')
             set_run_font(sep, size=FOOTNOTE_SIZE)
 
-            text_run = para.add_run(fn['text'])
+            fn_text = to_fullwidth_digits(fn['text'])
+            text_run = para.add_run(fn_text)
             set_run_font(text_run, size=FOOTNOTE_SIZE)
 
 
