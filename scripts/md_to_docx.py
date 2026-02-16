@@ -478,32 +478,6 @@ def _parse_text_with_sentinels(text, runs, footnotes):
 
 # ─── DOCX Rendering ───────────────────────────────────────────────────────
 
-def embed_font(doc, font_name, font_path):
-    if not os.path.isfile(font_path):
-        print(f"  Warning: Font file not found at {font_path}, skipping embed")
-        return
-    try:
-        with open(font_path, 'rb') as f:
-            font_data = f.read()
-
-        part = doc.part
-        font_part_name = f'/word/fonts/{font_name}.ttf'
-
-        from docx.opc.part import Part
-        from docx.opc.packuri import PackURI
-
-        font_part = Part(
-            PackURI(font_part_name),
-            'application/x-font-ttf',
-            font_data,
-            part.package
-        )
-
-        part.relate_to(font_part, 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/font')
-    except Exception as e:
-        print(f"  Note: Font embedding skipped ({e}), font must be installed locally")
-
-
 def setup_document(doc):
     section = doc.sections[0]
     section.page_width = Inches(6)
@@ -522,7 +496,6 @@ def setup_document(doc):
     )
     sectPr.append(text_dir)
 
-    embed_font(doc, FONT_NAME, FONT_PATH)
     setup_styles(doc)
 
 
