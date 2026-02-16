@@ -419,3 +419,15 @@ python scripts/md_to_docx.py --all pages output_docx
 * 註腳自動轉換為 Word 腳註，保留顏色標籤
 
 <script src="/assets/js/connection-diagram.js"></script>
+
+
+
+docx conversion parameters:
+1. 6" x 9" paper size, vertical chinese text
+2. 0.6" margin on all sides
+3. use the following font throughout: 台灣明體cwTeXMing.ttf
+4. group all the footnotes by the label (e.g., "解" or "注") and put them at the end of each chapter (at the end of each .md/.html file converted to docs)
+5. keep the color of the footnotes
+6. convert headings # in markdown to 17p bold font size; convert ## to bold size 15 subheadings; convert ### to bold size 12 font; normal text shall be size 13, footnotes at the end of each chapter size 11
+7.  make sure ms word sees them as subheadings
+8. 
