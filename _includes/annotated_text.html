@@ -104,21 +104,12 @@
   function doPositionPass() {
     var isMobile = window.innerWidth <= 768;
 
-    var blocks = [];
-    var seen = new Set();
-    container.querySelectorAll('p, center, blockquote, div, li, pre, h1, h2, h3, h4, h5, h6').forEach(function(el) {
-      if (el === container) return;
-      var dominated = false;
-      seen.forEach(function(s) {
-        if (s.contains(el)) dominated = true;
-      });
-      if (!dominated) {
-        seen.add(el);
-        blocks.push(el);
-      }
+    var allBlocks = new Set();
+    sidenotes.forEach(function(item) {
+      if (item.parentBlock) allBlocks.add(item.parentBlock);
     });
 
-    blocks.forEach(function(b) { b.style.paddingBottom = ''; });
+    allBlocks.forEach(function(b) { b.style.paddingBottom = ''; });
 
     if (isMobile) {
       sidenotes.forEach(function(item) {
@@ -144,10 +135,17 @@
 
     if (visibleNotes.length === 0) return;
 
+    var orderedBlocks = [];
+    var blockSeen = new Set();
     var notesByBlock = new Map();
+
     visibleNotes.forEach(function(item) {
       var block = item.parentBlock;
       if (!block) return;
+      if (!blockSeen.has(block)) {
+        blockSeen.add(block);
+        orderedBlocks.push(block);
+      }
       if (!notesByBlock.has(block)) notesByBlock.set(block, []);
       notesByBlock.get(block).push(item);
     });
@@ -155,7 +153,7 @@
     var noteGap = 8;
     var noteCursor = 0;
 
-    blocks.forEach(function(block) {
+    orderedBlocks.forEach(function(block) {
       var bNotes = notesByBlock.get(block);
       if (!bNotes || bNotes.length === 0) return;
 
