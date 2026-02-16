@@ -89,12 +89,12 @@
 
   function positionSidenotes() {
     var isMobile = window.innerWidth <= 768;
-    
+
     var paragraphs = container.querySelectorAll('p');
     paragraphs.forEach(function(p) {
       p.style.marginBottom = '';
     });
-    
+
     if (isMobile) {
       sidenotes.forEach(function(item) {
         if (!hiddenLabels[item.label]) {
@@ -105,82 +105,113 @@
       return;
     }
 
-    var containerRect = annotatedContainer.getBoundingClientRect();
-    var lastBottom = 0;
-    
-    var paragraphMaxBottom = {};
-    
-    sidenotes.forEach(function(item, index) {
-      if (hiddenLabels[item.label]) return;
-      
-      var refRect = item.ref.getBoundingClientRect();
-      var targetTop = refRect.top - containerRect.top;
-      
-      if (targetTop < lastBottom) {
-        targetTop = lastBottom;
-      }
-      
-      item.note.style.position = 'absolute';
-      item.note.style.top = targetTop + 'px';
-      item.note.style.left = '0';
-      item.note.style.right = '0';
-      
-      var noteBottom = targetTop + item.note.offsetHeight + 8;
-      lastBottom = noteBottom;
-      
-      if (item.parentP) {
-        var pId = Array.prototype.indexOf.call(paragraphs, item.parentP);
-        if (pId >= 0) {
-          if (!paragraphMaxBottom[pId] || noteBottom > paragraphMaxBottom[pId]) {
-            paragraphMaxBottom[pId] = noteBottom;
-          }
-        }
+    sidenotes.forEach(function(item) {
+      if (!hiddenLabels[item.label]) {
+        item.note.style.position = 'absolute';
+        item.note.style.left = '0';
+        item.note.style.right = '0';
       }
     });
-    
-    for (var pId in paragraphMaxBottom) {
-      var p = paragraphs[pId];
-      if (p) {
-        var pRect = p.getBoundingClientRect();
-        var pBottom = pRect.bottom - containerRect.top;
-        var footnotesBottom = paragraphMaxBottom[pId];
-        
-        if (footnotesBottom > pBottom) {
-          var extraSpace = footnotesBottom - pBottom;
-          p.style.marginBottom = extraSpace + 'px';
-        }
+
+    var containerRect = annotatedContainer.getBoundingClientRect();
+
+    var pArray = Array.prototype.slice.call(paragraphs);
+    var pData = pArray.map(function(p) {
+      var r = p.getBoundingClientRect();
+      return {
+        el: p,
+        naturalTop: r.top - containerRect.top,
+        naturalHeight: r.height,
+        naturalBottom: r.bottom - containerRect.top
+      };
+    });
+
+    var visibleNotes = sidenotes.filter(function(item) {
+      return !hiddenLabels[item.label];
+    });
+
+    var noteData = visibleNotes.map(function(item) {
+      var refRect = item.ref.getBoundingClientRect();
+      var pIdx = item.parentP ? pArray.indexOf(item.parentP) : -1;
+      return {
+        item: item,
+        refTop: refRect.top - containerRect.top,
+        noteHeight: item.note.offsetHeight,
+        pIdx: pIdx
+      };
+    });
+
+    var cumulativeShift = 0;
+    var noteCursor = 0;
+    var margins = new Array(pData.length);
+    for (var i = 0; i < margins.length; i++) margins[i] = 0;
+
+    var notesByParagraph = {};
+    noteData.forEach(function(nd) {
+      var key = nd.pIdx >= 0 ? nd.pIdx : -1;
+      if (!notesByParagraph[key]) notesByParagraph[key] = [];
+      notesByParagraph[key].push(nd);
+    });
+
+    for (var pi = 0; pi < pData.length; pi++) {
+      var pd = pData[pi];
+      var pTop = pd.naturalTop + cumulativeShift;
+      var pBottom = pd.naturalBottom + cumulativeShift;
+
+      var pNotes = notesByParagraph[pi];
+      if (!pNotes || pNotes.length === 0) continue;
+
+      for (var ni = 0; ni < pNotes.length; ni++) {
+        var nd = pNotes[ni];
+        var desiredTop = nd.refTop + cumulativeShift;
+        var placedTop = Math.max(desiredTop, noteCursor);
+        nd.placedTop = placedTop;
+        noteCursor = placedTop + nd.noteHeight + 8;
+      }
+
+      if (noteCursor > pBottom) {
+        var extra = Math.ceil(noteCursor - pBottom);
+        margins[pi] = extra;
+        cumulativeShift += extra;
       }
     }
-    
-    positionSidenotesPass2();
-  }
-  
-  function positionSidenotesPass2() {
-    var containerRect = annotatedContainer.getBoundingClientRect();
-    var lastBottom = 0;
-    
-    sidenotes.forEach(function(item) {
-      if (hiddenLabels[item.label]) return;
-      
-      var refRect = item.ref.getBoundingClientRect();
-      var targetTop = refRect.top - containerRect.top;
-      
-      if (targetTop < lastBottom) {
-        targetTop = lastBottom;
+
+    var orphanNotes = notesByParagraph[-1];
+    if (orphanNotes) {
+      for (var oi = 0; oi < orphanNotes.length; oi++) {
+        var nd = orphanNotes[oi];
+        var desiredTop = nd.refTop + cumulativeShift;
+        var placedTop = Math.max(desiredTop, noteCursor);
+        nd.placedTop = placedTop;
+        noteCursor = placedTop + nd.noteHeight + 8;
       }
-      
-      item.note.style.top = targetTop + 'px';
-      lastBottom = targetTop + item.note.offsetHeight + 8;
+    }
+
+    for (var mi = 0; mi < margins.length; mi++) {
+      if (margins[mi] > 0) {
+        pData[mi].el.style.marginBottom = margins[mi] + 'px';
+      }
+    }
+
+    noteData.forEach(function(nd) {
+      if (nd.placedTop !== undefined) {
+        nd.item.note.style.top = nd.placedTop + 'px';
+      }
     });
   }
 
-  setTimeout(positionSidenotes, 100);
+  setTimeout(positionSidenotes, 200);
   
   window.addEventListener('resize', function() {
-    setTimeout(positionSidenotes, 100);
+    setTimeout(positionSidenotes, 200);
   });
   window.addEventListener('load', function() {
-    setTimeout(positionSidenotes, 100);
+    setTimeout(positionSidenotes, 300);
   });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function() {
+      setTimeout(positionSidenotes, 100);
+    });
+  }
 })();
 </script>
