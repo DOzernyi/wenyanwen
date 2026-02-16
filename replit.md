@@ -82,7 +82,7 @@ The `data-pairs` array defines connections: `[top_index, bottom_index]`.
 
 ## MD to DOCX Conversion
 
-Convert markdown files with annotations to DOCX format with vertical Chinese text:
+Convert markdown files with annotations to DOCX format:
 
 ```bash
 # Convert a single file
@@ -93,9 +93,15 @@ python scripts/md_to_docx.py --all pages output_docx
 ```
 
 The generated DOCX files feature:
-- Vertical text direction (top-to-bottom, right-to-left columns)
-- Landscape A4 page orientation
-- Annotations collected as footnotes at the end
+- 6" x 9" paper size with vertical Chinese text (top-to-bottom, right-to-left)
+- 0.6" margins on all sides
+- 台灣明體 (cwTeXMing) font throughout, embedded in DOCX
+- Headings: # = 17pt bold (Heading 1), ## = 15pt bold (Heading 2), ### = 12pt bold (Heading 3)
+- Normal text: 13pt, footnotes: 11pt
+- Word recognizes headings as proper Heading 1/2/3 styles
+- End-of-chapter footnotes grouped by label type (脂批, 注, 解讀, etc.) with colors preserved
+- Beamer blocks rendered as colored tables with title bar and body
+- Lists and indentation preserved from source
 
 ## Development
 
