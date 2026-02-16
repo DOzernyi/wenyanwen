@@ -415,11 +415,28 @@ title: 通讀古文
       </div>
       <div class="book-body">
         <ul class="chapter-list">
-          <li class="chapter-item">
-            <a href="/pages/儒林外史/儒林外史1.html" class="chapter-link">第一回　說楔子敷陳大義　借名流隱括全文</a>
-          </li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史1.html" class="chapter-link">第一回　說楔子敷陳大義　借名流隱括全文</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史2.html" class="chapter-link">第二回　王孝廉村學識同科　周蒙師暮年登上第</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史3.html" class="chapter-link">第三回　周學道校士拔真才　胡屠戶行兇鬧捷報</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史4.html" class="chapter-link">第四回　薦亡齋和尚喫官司　打秋風鄉紳遭橫事</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史5.html" class="chapter-link">第五回　王秀才議立偏房　嚴監生疾終正寢</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史6.html" class="chapter-link">第六回　鄉紳發病鬧船家　寡婦含冤控大伯</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史7.html" class="chapter-link">第七回　范學道視學報師恩　王員外立朝敦友誼</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史8.html" class="chapter-link">第八回　王觀察窮途逢世好　婁公子故里遇貧交</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史9.html" class="chapter-link">第九回　婁公子捐金贖朋友　劉守備冒姓打船家</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史10.html" class="chapter-link">第十回　魯翰林憐才擇婿　蘧公孫富室招親</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史11.html" class="chapter-link">第十一回　魯小姐制義難新郎　楊司訓相府薦賢士</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史12.html" class="chapter-link">第十二回　名士大宴鶯脰湖　俠客虛設人頭會</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史13.html" class="chapter-link">第十三回　蘧駪夫求賢問業　馬純上仗義疎財</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史14.html" class="chapter-link">第十四回　蘧公孫書坊送良友　馬秀才山洞遇神仙</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史15.html" class="chapter-link">第十五回　葬神仙馬秀才送喪　思父母匡童生盡孝</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史16.html" class="chapter-link">第十六回　大柳莊孝子事親　樂清縣賢宰愛士</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史17.html" class="chapter-link">第十七回　匡秀才重遊舊地　趙醫生高踞詩壇</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史18.html" class="chapter-link">第十八回　約詩會名士攜匡二　訪朋友書店會潘三</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史19.html" class="chapter-link">第十九回　匡超人幸得良朋　潘自業橫遭禍事</a></li>
+          <li class="chapter-item"><a href="/pages/儒林外史/儒林外史20.html" class="chapter-link">第二十回　匡超人高興長安道　牛布衣客死蕪湖關</a></li>
         </ul>
-        <p class="coming-soon">更多章節即將推出</p>
+        <p class="coming-soon">更多章節即將推出（第二十一至三十七回）</p>
       </div>
     </div>
 
@@ -457,6 +474,54 @@ title: 通讀古文
       </div>
     </div>
 
+    </div>
+  </div>
+</details>
+
+<!-- 中華文學史閒劄 Section -->
+<details class="collapsible-section" open>
+  <summary>
+    <span class="section-icon">🖊</span>
+    <h2 class="section-title">中華文學史閒劄</h2>
+  </summary>
+  <div class="section-content">
+    <div class="text-list">
+      <div class="text-item"><a href="/pages/中華文學史閒劄/漢代.html">漢代：賦體、樂府詩、五言詩</a></div>
+      <div class="text-item"><a href="/pages/中華文學史閒劄/魏晉.html">魏晉</a></div>
+    </div>
+  </div>
+</details>
+
+<!-- 翻譯 Translations Section -->
+<details class="collapsible-section">
+  <summary>
+    <span class="section-icon">🌐</span>
+    <h2 class="section-title">翻譯 Translations</h2>
+  </summary>
+  <div class="section-content">
+    <div class="level-group">
+      <div class="level-label intermediate">Українська</div>
+      <div class="text-list">
+        <div class="text-item"><a href="/pages/українська/вступ/畫蛇添足ukr.html">畫蛇添足</a></div>
+        <div class="text-item"><a href="/pages/українська/вступ/以五十步笑百步ukr.html">以五十步笑百步</a></div>
+        <div class="text-item"><a href="/pages/українська/вступ/魚之樂ukr.html">魚之樂</a></div>
+        <div class="text-item"><a href="/pages/українська/вступ/曹劌論戰ukr.html">曹劌論戰</a></div>
+        <div class="text-item"><a href="/pages/українська/вступ/大學ukr.html">大學</a></div>
+        <div class="text-item"><a href="/pages/українська/вступ/兼愛ukr.html">兼愛</a></div>
+        <div class="text-item"><a href="/pages/українська/вступ/告子上選ukr.html">告子上選</a></div>
+        <div class="text-item"><a href="/pages/українська/вступ/王制ukr.html">王制</a></div>
+        <div class="text-item"><a href="/pages/українська/вступ/太王去邠ukr.html">太王去邠</a></div>
+        <div class="text-item"><a href="/pages/українська/вступ/屠羊說不受賞ukr.html">屠羊說不受賞</a></div>
+        <div class="text-item"><a href="/pages/українська/вступ/馮諼客孟嘗君ukr.html">馮諼客孟嘗君</a></div>
+        <div class="text-item"><a href="/pages/українська/вступ/項羽本紀ukr.html">項羽本紀</a></div>
+        <div class="text-item"><a href="/pages/українська/燕丹子ukr.html">燕丹子</a></div>
+      </div>
+    </div>
+    <div class="level-group">
+      <div class="level-label beginner">English</div>
+      <div class="text-list">
+        <div class="text-item"><a href="/pages/english/燕丹子eng.html">燕丹子 (Prince Dan of Yan)</a></div>
+      </div>
     </div>
   </div>
 </details>
