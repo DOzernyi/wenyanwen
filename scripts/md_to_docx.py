@@ -238,7 +238,19 @@ def preprocess_liquid(md_content):
 
 
 def convert_to_html(md_text):
-    md_text = re.sub(r'^(\s*)([\*\-])\s', r'\1\2 ', md_text, flags=re.MULTILINE)
+    lines = md_text.split('\n')
+    fixed = []
+    for i, line in enumerate(lines):
+        if re.match(r'\s*[\*\-]\s', line) and i > 0:
+            prev = fixed[-1] if fixed else ''
+            if prev.strip() and not re.match(r'\s*[\*\-]\s', prev) and not prev.strip().startswith('#'):
+                fixed.append('')
+        if re.match(r'\s*\d+\.\s', line) and i > 0:
+            prev = fixed[-1] if fixed else ''
+            if prev.strip() and not re.match(r'\s*\d+\.\s', prev) and not prev.strip().startswith('#'):
+                fixed.append('')
+        fixed.append(line)
+    md_text = '\n'.join(fixed)
     html = markdown.markdown(md_text, extensions=['extra'])
     html = re.sub(r'<br\s*/?>', '<br/>', html)
     return html
@@ -369,33 +381,16 @@ def tag_to_elements(tag, footnotes, list_level=0):
 
     elif name == 'table':
         rows_data = []
-        for tr in tag.find_all('tr', recursive=False):
-            if not tr:
-                tbody = tag.find('tbody')
-                if tbody:
-                    for tr2 in tbody.find_all('tr'):
-                        cells = []
-                        for td in tr2.find_all(['td', 'th']):
-                            cells.append(parse_inline(td, footnotes))
-                        if cells:
-                            rows_data.append(cells)
+        for section in [tag.find('thead'), tag.find('tbody'), tag]:
+            if section:
+                for tr in section.find_all('tr', recursive=False):
+                    cells = []
+                    for td in tr.find_all(['td', 'th'], recursive=False):
+                        cells.append(parse_inline(td, footnotes))
+                    if cells:
+                        rows_data.append(cells)
+            if rows_data:
                 break
-            cells = []
-            for td in tr.find_all(['td', 'th']):
-                cells.append(parse_inline(td, footnotes))
-            if cells:
-                rows_data.append(cells)
-        if not rows_data:
-            tbody = tag.find('tbody')
-            thead = tag.find('thead')
-            for section in [thead, tbody]:
-                if section:
-                    for tr in section.find_all('tr'):
-                        cells = []
-                        for td in tr.find_all(['td', 'th']):
-                            cells.append(parse_inline(td, footnotes))
-                        if cells:
-                            rows_data.append(cells)
         if rows_data:
             elements.append({'type': 'table', 'rows': rows_data})
 
@@ -488,9 +483,6 @@ def embed_font(doc, font_name, font_path):
         print(f"  Warning: Font file not found at {font_path}, skipping embed")
         return
     try:
-        from docx.opc.constants import RELATIONSHIP_TYPE as RT
-        import hashlib
-
         with open(font_path, 'rb') as f:
             font_data = f.read()
 
