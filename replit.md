@@ -15,6 +15,7 @@ This site uses the Jekyll static site generator with the minimal theme. It inclu
 ├── _includes/           # Reusable components
 │   ├── fn.html          # Footnote marker (simple inline tag)
 │   ├── annotated_text.html  # Full annotated text container
+│   ├── block.html       # Beamer-style content block (supports Markdown)
 │   └── connection_diagram.html # Word connection diagram
 ├── _sass/               # SCSS stylesheets
 │   ├── jekyll-theme-minimal.scss

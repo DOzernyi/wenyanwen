@@ -187,51 +187,95 @@ title: 編寫指南
 
 ## 三、文字方塊（Beamer 風格）
 
-類似 LaTeX Beamer 簡報中的 block 環境，有彩色標題欄和淺色背景。
+類似 LaTeX Beamer 簡報中的 block 環境，有彩色標題欄和淺色背景。支援 Markdown 語法（列表、粗體、換行等）。
 
 ### 預設方塊（藍色）
 
-<div class="block">
-  <div class="block-title">方塊標題</div>
-  <div class="block-body">這是方塊的內容。可以放入任何文字。</div>
-</div>
+{% capture block_demo1 %}
+這是方塊的內容。可以放入任何文字。
+{% endcapture %}
+{% include block.html title="方塊標題" content=block_demo1 %}
 
-```html
-<div class="block">
-  <div class="block-title">方塊標題</div>
-  <div class="block-body">這是方塊的內容。</div>
-</div>
+```liquid
+{%- raw %}
+{% capture block_demo1 %}
+這是方塊的內容。可以放入任何文字。
+{% endcapture %}
+{% include block.html title="方塊標題" content=block_demo1 %}
+{% endraw %}
 ```
 
 ### 顏色變體
 
-加上 class 即可切換顏色：
+加上 `type` 即可切換顏色：
 
-<div class="block alert">
-  <div class="block-title">重要提示（alert）</div>
-  <div class="block-body">紅色方塊，適合標示重要事項。</div>
-</div>
+{% capture block_demo_alert %}
+紅色方塊，適合標示重要事項。
+{% endcapture %}
+{% include block.html type="alert" title="重要提示（alert）" content=block_demo_alert %}
 
-<div class="block example">
-  <div class="block-title">範例（example）</div>
-  <div class="block-body">綠色方塊，適合標示範例或正面內容。</div>
-</div>
+{% capture block_demo_example %}
+綠色方塊，適合標示範例或正面內容。
+{% endcapture %}
+{% include block.html type="example" title="範例（example）" content=block_demo_example %}
 
-<div class="block warning">
-  <div class="block-title">注意（warning）</div>
-  <div class="block-body">橙色方塊，適合標示提醒。</div>
-</div>
+{% capture block_demo_warning %}
+橙色方塊，適合標示提醒。
+{% endcapture %}
+{% include block.html type="warning" title="注意（warning）" content=block_demo_warning %}
 
-<div class="block purple">
-  <div class="block-title">補充（purple）</div>
-  <div class="block-body">紫色方塊，適合標示補充說明。</div>
-</div>
+{% capture block_demo_purple %}
+紫色方塊，適合標示補充說明。
+{% endcapture %}
+{% include block.html type="purple" title="補充（purple）" content=block_demo_purple %}
 
-```html
-<div class="block alert">    <!-- 紅色 -->
-<div class="block example">  <!-- 綠色 -->
-<div class="block warning">  <!-- 橙色 -->
-<div class="block purple">   <!-- 紫色 -->
+{% capture block_demo_note %}
+深藍色方塊，適合標示注釋。
+{% endcapture %}
+{% include block.html type="note" title="注釋（note）" content=block_demo_note %}
+
+```liquid
+{%- raw %}
+type="alert"     <!-- 紅色 -->
+type="example"   <!-- 綠色 -->
+type="warning"   <!-- 橙色 -->
+type="purple"    <!-- 紫色 -->
+type="note"      <!-- 深藍色 -->
+（不加 type）     <!-- 預設藍色 -->
+{% endraw %}
+```
+
+### 方塊內使用 Markdown
+
+方塊內可以使用列表、粗體、換行等 Markdown 語法：
+
+{% capture block_demo_md %}
+**重點整理：**
+
+* 第一點說明
+* 第二點說明
+* 第三點說明
+
+1. 有序列表也可以
+2. 支援巢狀結構
+   * 子項目
+{% endcapture %}
+{% include block.html type="example" title="Markdown 範例" content=block_demo_md %}
+
+```liquid
+{%- raw %}
+{% capture my_block %}
+**重點整理：**
+
+* 第一點說明
+* 第二點說明
+
+1. 有序列表也可以
+2. 支援巢狀結構
+   * 子項目
+{% endcapture %}
+{% include block.html type="example" title="Markdown 範例" content=my_block %}
+{% endraw %}
 ```
 
 ---
