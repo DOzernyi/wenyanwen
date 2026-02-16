@@ -2,7 +2,7 @@
   <div class="footnote-filters" id="footnote-filters-{{ include.id | default: 'main' }}">
   </div>
   <div class="annotated-main" id="annotated-content-{{ include.id | default: 'main' }}">
-    {{ include.content }}
+    {{ include.content | markdownify }}
   </div>
   <div class="annotated-notes" id="annotated-notes-{{ include.id | default: 'main' }}">
   </div>
