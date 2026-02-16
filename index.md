@@ -439,7 +439,7 @@ title: 通讀古文
         <h3 class="book-title">《紅樓夢》(注)(批選)</h3>
         <div class="book-meta">
           <span class="book-author">曹雪芹 著 (庚辰本為底本)</span>
-          <a href="/pages/校注凡例.html" class="fanli-link">校注凡例</a>
+          <a href="/pages/紅樓夢/校注凡例.html" class="fanli-link">校注凡例</a>
         </div>
       </div>
       <div class="book-body">
@@ -460,7 +460,7 @@ title: 通讀古文
         <h3 class="book-title">《儒林外史》</h3>
         <div class="book-meta">
           <span class="book-author">吳敬梓 著</span>
-          <a href="/pages/校注凡例.html" class="fanli-link">校注凡例</a>
+          <a href="/pages/儒林外史/校注凡例.html" class="fanli-link">校注凡例</a>
         </div>
       </div>
       <div class="book-body">
@@ -498,7 +498,7 @@ title: 通讀古文
         <h3 class="book-title">《水滸傳》</h3>
         <div class="book-meta">
           <span class="book-author">施耐庵 著</span>
-          <a href="/pages/校注凡例.html" class="fanli-link">校注凡例</a>
+          <a href="/pages/水滸傳/校注凡例.html" class="fanli-link">校注凡例</a>
         </div>
       </div>
       <div class="book-body">
@@ -517,7 +517,7 @@ title: 通讀古文
         <h3 class="book-title">《鏡花緣》</h3>
         <div class="book-meta">
           <span class="book-author">李汝珍 著</span>
-          <a href="/pages/校注凡例.html" class="fanli-link">校注凡例</a>
+          <a href="/pages/鏡花緣/校注凡例.html" class="fanli-link">校注凡例</a>
         </div>
       </div>
       <div class="book-body">
